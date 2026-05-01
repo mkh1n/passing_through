@@ -1,0 +1,62 @@
+```
+# Godot-specific ignores
+*.import
+*.remap
+.project
+.love
+.scons_cache/
+.cache/
+*.fd
+*.fda
+*.scn
+*.tres
+*.res
+
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+
+# Dependencies
+.venv/
+venv/
+node_modules/
+build/
+dist/
+target/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.mypy_cache/
+.pytest_cache/
+.gradle/
+```

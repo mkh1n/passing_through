@@ -1,0 +1,238 @@
+{
+  "events": [
+    {
+      "id": "stoppe_stranger_001",
+      "title": "Незнакомец на остановке",
+      "description": "На остановке стоит человек. Он смотрит в телефон, но кажется встревоженным. Автобуса нет уже 20 минут.",
+      "location": "bus_stop",
+      "type": "narrative",
+      "min_day": 1,
+      "max_day": 5,
+      "risk": false,
+      "choices": [
+        {
+          "text": "Спросить, всё ли в порядке",
+          "track": "connect",
+          "state_change": 1,
+          "archetype_shift": {"healer": 1.5, "euphoric": 0.5},
+          "photo_variant": {
+            "perception_type": "PEOPLE",
+            "flavor_text": "Два незнакомца. Один вопрос изменил всё."
+          }
+        },
+        {
+          "text": "Наблюдать со стороны",
+          "track": "observe",
+          "state_change": 0,
+          "archetype_shift": {"cynic": 1.0, "nihilist": 0.5},
+          "photo_variant": {
+            "perception_type": "ENVIRONMENT",
+            "flavor_text": "Остановка. Пустота между людьми."
+          }
+        },
+        {
+          "text": "Игнорировать и уйти",
+          "track": "observe",
+          "state_change": -1,
+          "archetype_shift": {"fleeing": 1.5, "nihilist": 0.5},
+          "echo_consequence": "negative",
+          "photo_variant": {
+            "perception_type": "ABSTRACT",
+            "flavor_text": "Ты отвернулся. Момент остался позади."
+          }
+        }
+      ],
+      "archetype_texts": {
+        "euphoric": {
+          "title": "Возможность для связи",
+          "description": "Человек на остановке выглядит открытым. Может, это знак?"
+        },
+        "cynic": {
+          "title": "Очередная драма",
+          "description": "Кто-то снова хочет внимания. Но тебе это не нужно."
+        },
+        "nihilist": {
+          "title": "Случайный встречный",
+          "description": "Ещё один человек в бесконечной череде лиц. Ничего особенного."
+        }
+      }
+    },
+    {
+      "id": "roof_sunset_002",
+      "title": "Закат на крыше",
+      "description": "Ты забрался на крышу старого дома. Город внизу окрашен в оранжевый свет. Ветер играет с краем твоей куртки.",
+      "location": "roof",
+      "type": "narrative",
+      "min_day": 3,
+      "max_day": 10,
+      "risk": false,
+      "choices": [
+        {
+          "text": "Сделать фото заката",
+          "track": "observe",
+          "state_change": 1,
+          "archetype_shift": {"euphoric": 1.0, "obsessive": 0.5},
+          "photo_variant": {
+            "perception_type": "ENVIRONMENT",
+            "flavor_text": "Город горит в последнем свете дня."
+          }
+        },
+        {
+          "text": "Просто смотреть, без камеры",
+          "track": "observe",
+          "state_change": 2,
+          "archetype_shift": {"nihilist": 1.0, "healer": 0.5},
+          "photo_variant": {
+            "perception_type": "EMOTION",
+            "flavor_text": "Некоторые моменты нельзя поймать. Только прожить."
+          }
+        },
+        {
+          "text": "Подумать о том, что упустил",
+          "track": "observe",
+          "state_change": -1,
+          "archetype_shift": {"selfharm": 1.0, "cynic": 0.5},
+          "photo_variant": {
+            "perception_type": "ABSTRACT",
+            "flavor_text": "Красота есть. Но ты не здесь."
+          }
+        }
+      ]
+    },
+    {
+      "id": "skate_crew_003",
+      "title": "Скейтеры во дворе",
+      "description": "Компания скейтеров занимает пустую площадку. Они смеются, падают, пробуют снова. Один из них замечает тебя.",
+      "location": "courtyard",
+      "type": "interactive",
+      "min_day": 4,
+      "max_day": 8,
+      "risk": true,
+      "subculture": "skaters",
+      "choices": [
+        {
+          "text": "Попробовать присоединиться",
+          "track": "connect",
+          "state_change": 0,
+          "archetype_shift": {"euphoric": 1.0, "healer": 0.5},
+          "minigame": {
+            "type": "rhythm",
+            "context": {
+              "on_success": {"archetype_shift": {"euphoric": 2.0}},
+              "on_fail": {"echo_event": {"id": "skate_fail_echo", "consequence": "missed_connection"}}
+            }
+          },
+          "photo_variant": {
+            "perception_type": "PEOPLE",
+            "flavor_text": "Ты был частью момента. Хотя бы на минуту."
+          }
+        },
+        {
+          "text": "Наблюдать издалека",
+          "track": "observe",
+          "state_change": 0,
+          "archetype_shift": {"cynic": 0.5, "nihilist": 0.5},
+          "photo_variant": {
+            "perception_type": "ENVIRONMENT",
+            "flavor_text": "Чужая радость. Чужой двор. Чужой момент."
+          }
+        },
+        {
+          "text": "Пройти мимо",
+          "track": "observe",
+          "state_change": 0,
+          "archetype_shift": {"fleeing": 1.0},
+          "echo_consequence": "transformed",
+          "photo_variant": {
+            "perception_type": "ABSTRACT",
+            "flavor_text": "Звук колёс стихает за спиной."
+          }
+        }
+      ]
+    },
+    {
+      "id": "empty_bench_004",
+      "title": "Пустая скамейка",
+      "description": "Скамейка в парке. На ней лежит забытая книга. Страницы трепещут на ветру.",
+      "location": "park",
+      "type": "narrative",
+      "min_day": 2,
+      "max_day": 7,
+      "risk": false,
+      "choices": [
+        {
+          "text": "Прочитать страницу",
+          "track": "observe",
+          "state_change": 0,
+          "archetype_shift": {"obsessive": 1.5, "nihilist": 0.5},
+          "photo_variant": {
+            "perception_type": "ABSTRACT",
+            "flavor_text": "Чужие слова. Чужая история. Чужая жизнь."
+          }
+        },
+        {
+          "text": "Листнуть и закрыть",
+          "track": "observe",
+          "state_change": 0,
+          "archetype_shift": {"cynic": 1.0},
+          "photo_variant": {
+            "perception_type": "ENVIRONMENT",
+            "flavor_text": "Книга ждёт своего читателя. Не тебя."
+          }
+        },
+        {
+          "text": "Оставить как есть",
+          "track": "observe",
+          "state_change": 0,
+          "archetype_shift": {"nihilist": 1.0},
+          "photo_variant": {
+            "perception_type": "ENVIRONMENT",
+            "flavor_text": "Некоторым вещам лучше оставаться нетронутыми."
+          }
+        }
+      ]
+    },
+    {
+      "id": "night_street_005",
+      "title": "Ночная улица",
+      "description": "Фонарь мигает. Ты идёшь по пустой улице. Где-то вдалеке слышна музыка.",
+      "location": "street",
+      "type": "narrative",
+      "min_day": 5,
+      "max_day": 15,
+      "risk": false,
+      "choices": [
+        {
+          "text": "Идти на звук",
+          "track": "action",
+          "state_change": 1,
+          "archetype_shift": {"euphoric": 1.0, "healer": 0.5},
+          "photo_variant": {
+            "perception_type": "EMOTION",
+            "flavor_text": "Музыка ведёт тебя сквозь ночь."
+          }
+        },
+        {
+          "text": "Ускорить шаг",
+          "track": "action",
+          "state_change": 0,
+          "archetype_shift": {"fleeing": 1.5},
+          "photo_variant": {
+            "perception_type": "ABSTRACT",
+            "flavor_text": "Бег от самого себя. Но куда?"
+          }
+        },
+        {
+          "text": "Остановиться и слушать",
+          "track": "observe",
+          "state_change": 1,
+          "archetype_shift": {"nihilist": 1.0, "healer": 0.5},
+          "photo_variant": {
+            "perception_type": "ENVIRONMENT",
+            "flavor_text": "Ночь дышит вокруг. Ты — часть тишины."
+          }
+        }
+      ]
+    }
+  ]
+}
