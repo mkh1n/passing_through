@@ -69,7 +69,7 @@ func stop_movement() -> void:
 ## Обрабатывает физику движения
 func handle_movement(delta: float) -> void:
 	# Вычисляем направление
-	var direction := (target_position - global_position).normalized()
+	var direction: = (target_position - global_position).normalized()
 	
 	if direction == Vector2.ZERO:
 		stop_movement()
@@ -86,7 +86,7 @@ func handle_movement(delta: float) -> void:
 	move_and_slide()
 	
 	# Обновляем прогресс
-	var distance := target_position.distance_to(global_position)
+	var distance: = target_position.distance_to(global_position)
 	if distance < 5.0:  # Порог прибытия
 		global_position = target_position
 		stop_movement()
@@ -145,7 +145,7 @@ func get_movement_progress() -> float:
 	if target_position == Vector2.ZERO:
 		return 0.0
 	
-	var total_distance := target_position.distance_to(global_position)
+	var total_distance: = target_position.distance_to(global_position)
 	if total_distance == 0:
 		return 1.0
 	

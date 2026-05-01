@@ -106,8 +106,8 @@ func add_track(track_type: String, amount: int = 1) -> void:
 
 ## Получает доминирующий трек (стиль игры)
 func get_dominant_track() -> String:
-	var max_value := 0
-	var dominant := "observe"
+	var max_value: = 0
+	var dominant: = "observe"
 	
 	for track in tracks:
 		if tracks[track] > max_value:
@@ -126,8 +126,8 @@ func shift_archetype(archetype_name: String, intensity: float = 1.0) -> void:
 
 ## Получает доминирующий архетип (как игрок интерпретирует мир)
 func get_dominant_archetype() -> String:
-	var max_value := 0.0
-	var dominant := "nihilist"  # дефолт
+	var max_value: = 0.0
+	var dominant: = "nihilist"  # дефолт
 	
 	for archetype in archetypes:
 		if archetypes[archetype] > max_value:
@@ -152,7 +152,7 @@ func select_memory(index: int) -> Dictionary:
 	if index < 0 or index >= daily_photos.size():
 		return {}
 	
-	var selected := daily_photos[index]
+	var selected: = daily_photos[index]
 	daily_photos.clear()
 	memory.append(selected)
 	memory_updated.emit(memory)
@@ -170,7 +170,7 @@ func add_echo_event(event_id: String, event_data: Dictionary) -> void:
 
 ## Проверяет и возвращает события эхо, которые должны проявиться
 func check_echo_events() -> Array:
-	var active_echos := []
+	var active_echos: = []
 	
 	for echo in echo_events:
 		# Эхо проявляется через 2-4 дня

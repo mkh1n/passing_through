@@ -72,7 +72,7 @@ func sync_with_player(player_velocity: float) -> void:
 # ==================== ВИЗУАЛЬНЫЕ ЭФФЕКТЫ ====================
 ## Применяет цветовой фильтр на основе архетипа
 func apply_archetype_filter(archetype: String) -> void:
-	var modulate_color := Color.WHITE
+	var modulate_color: = Color.WHITE
 	
 	match archetype:
 		"euphoric":

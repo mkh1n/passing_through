@@ -35,18 +35,18 @@ func _ready() -> void:
 func load_all_events() -> void:
 	all_events.clear()
 	
-	var dir := DirAccess.open(events_folder)
+	var dir: = DirAccess.open(events_folder)
 	if not dir:
 		push_error("[EventManager] Cannot access events folder: %s" % events_folder)
 		return
 	
 	dir.list_dir_begin()
-	var file_name := dir.get_next()
+	var file_name: = dir.get_next()
 	
 	while file_name != "":
 		if file_name.ends_with(".json"):
-			var file_path := events_folder + file_name
-			var events := load_events_from_json(file_path)
+			var file_path: = events_folder + file_name
+			var events: = load_events_from_json(file_path)
 			all_events.append_array(events)
 			print("[EventManager] Loaded %d events from %s" % [events.size(), file_name])
 		
@@ -56,14 +56,14 @@ func load_all_events() -> void:
 
 ## Парсит JSON файл с событиями
 func load_events_from_json(file_path: String) -> Array:
-	var file := FileAccess.open(file_path, FileAccess.READ)
+	var file: = FileAccess.open(file_path, FileAccess.READ)
 	if not file:
 		push_error("[EventManager] Cannot open file: %s" % file_path)
 		return []
 	
-	var json_string := file.get_as_text()
-	var json := JSON.new()
-	var parse_result := json.parse(json_string)
+	var json_string: = file.get_as_text()
+	var json: = JSON.new()
+	var parse_result: = json.parse(json_string)
 	
 	if parse_result != OK:
 		push_error("[EventManager] JSON parse error in %s: %s" % [file_path, json.get_error_message()])
@@ -81,18 +81,18 @@ func load_events_from_json(file_path: String) -> Array:
 # ==================== ПОЛУЧЕНИЕ СОБЫТИЙ ====================
 ## Получает следующее доступное событие с учётом контекста
 func get_next_event(context: Dictionary = {}) -> Dictionary:
-	var available_events := filter_events(context)
+	var available_events: = filter_events(context)
 	
 	if available_events.is_empty():
 		return create_fallback_event()
 	
 	# Выбираем случайное событие из доступных
-	var selected := available_events[randi() % available_events.size()]
+	var selected: = available_events[randi() % available_events.size()]
 	return selected
 
 ## Фильтрует события по условиям
 func filter_events(context: Dictionary) -> Array:
-	var filtered := []
+	var filtered: = []
 	
 	for event in all_events:
 		if not is_event_available(event, context):
@@ -129,7 +129,7 @@ func is_event_available(event: Dictionary, context: Dictionary) -> bool:
 	
 	# Проверка предыдущих выборов
 	if event.has("requires_previous_choice"):
-		var req := event["requires_previous_choice"]
+		var req: = event["requires_previous_choice"]
 		if not completed_events.has(req["event_id"]):
 			return false
 		# Можно добавить проверку конкретного выбора
@@ -169,7 +169,7 @@ func complete_event(choice_index: int) -> void:
 	if current_event.is_empty():
 		return
 	
-	var event_id := current_event.get("id", "")
+	var event_id: = current_event.get("id", "")
 	completed_events.append(event_id)
 	
 	# Применяем эффекты выбора
@@ -184,7 +184,7 @@ func skip_event() -> void:
 	if current_event.is_empty():
 		return
 	
-	var event_id := current_event.get("id", "")
+	var event_id: = current_event.get("id", "")
 	
 	# Если событие с риском, добавляем в эхо
 	if current_event.get("risk", false):
@@ -198,7 +198,7 @@ func apply_choice_effects(choice_index: int) -> void:
 	if not current_event.has("choices") or choice_index >= current_event["choices"].size():
 		return
 	
-	var choice := current_event["choices"][choice_index]
+	var choice: = current_event["choices"][choice_index]
 	
 	# Изменение треков
 	if choice.has("track"):
@@ -221,7 +221,7 @@ func apply_choice_effects(choice_index: int) -> void:
 # ==================== ЭХО-СИСТЕМА ====================
 ## Проверяет и возвращает эхо-события
 func check_and_get_echo_event() -> Dictionary:
-	var active_echos := GameState.check_echo_events()
+	var active_echos: = GameState.check_echo_events()
 	
 	if active_echos.is_empty() or ignored_risky_events.is_empty():
 		return {}
@@ -231,7 +231,7 @@ func check_and_get_echo_event() -> Dictionary:
 		for ignored in ignored_risky_events:
 			if ignored.get("id") == echo["id"]:
 				# Возвращаем модифицированную версию события
-				var echo_event := ignored.duplicate(true)
+				var echo_event: = ignored.duplicate(true)
 				echo_event["is_echo"] = true
 				echo_event["title"] = "Эхо: " + echo_event["title"]
 				echo_event["description"] = get_echo_description(echo_event)
@@ -241,7 +241,7 @@ func check_and_get_echo_event() -> Dictionary:
 
 ## Генерирует описание для эхо-события
 func get_echo_description(event: Dictionary) -> String:
-	var base_desc := event.get("description", "")
+	var base_desc: = event.get("description", "")
 	
 	# Добавляем последствия
 	if event.get("echo_consequence") == "negative":
@@ -254,12 +254,12 @@ func get_echo_description(event: Dictionary) -> String:
 # ==================== ИНТЕГРАЦИЯ С АРХЕТИПАМИ ====================
 ## Модифицирует текст события под текущий архетип
 func flavor_event_with_archetype(event: Dictionary) -> Dictionary:
-	var flavored := event.duplicate(true)
-	var archetype := GameState.get_dominant_archetype()
+	var flavored: = event.duplicate(true)
+	var archetype: = GameState.get_dominant_archetype()
 	
 	# Если есть специфичные тексты для архетипа
 	if flavored.has("archetype_texts") and flavored["archetype_texts"].has(archetype):
-		var arch_text := flavored["archetype_texts"][archetype]
+		var arch_text: = flavored["archetype_texts"][archetype]
 		
 		if arch_text.has("title"):
 			flavored["title"] = arch_text["title"]

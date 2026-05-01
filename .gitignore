@@ -1,63 +1,37 @@
 ```
 # Godot-specific ignores
 *.import
-.export/
-.rpk
-.scp
-.tres
-.scene
-.res
-.gd
-.cs
-.mono/
-GodotSharp/
-addons/
-.project
-.user
-.ios/
-.android/
-.windows/
-.linux/
-.osx/
-macos/
-linux/
-windows/
-android/
-ios/
+*.pid
+*.tmp
+*.log
 export_presets.cfg
-.godot/
+.autoload_singleton.gd
+.editor/
 
 # Build artifacts
-bin/
-build/
-dist/
-*.exe
-*.dll
 *.so
+*.dll
 *.dylib
+*.exe
+*.bin
 
 # Dependencies
-node_modules/
-vendor/
-lib/
+.godot/
+.godot_build/
+.godot_temp/
 
-# Environment
-.env
-.env.local
-.env.*
+# Logs and temp files
+*.tmp
+*.log
+*.pid
 
-# Editors
+# Editor/IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# Logs
-*.log
-*.tmp
-
-# OS
+# System files
 .DS_Store
 Thumbs.db
 ```

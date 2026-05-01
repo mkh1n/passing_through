@@ -96,7 +96,7 @@ func update_hud() -> void:
 	
 	# Состояние
 	if state_label:
-		var state_text := ""
+		var state_text: = ""
 		match GameState.player_state:
 			-2: state_text = "😞 Глубоко"
 			-1: state_text = "😟 Плохо"
@@ -130,16 +130,16 @@ func show_event(event_data: Dictionary) -> void:
 	# Кнопки выборов
 	clear_choice_buttons()
 	
-	var choices := event_data.get("choices", [])
+	var choices: = event_data.get("choices", [])
 	for i in range(choices.size()):
-		var choice := choices[i]
-		var button := create_choice_button(choice, i)
+		var choice: = choices[i]
+		var button: = create_choice_button(choice, i)
 		if choice_buttons_container:
 			choice_buttons_container.add_child(button)
 
 ## Создаёт кнопку выбора
 func create_choice_button(choice: Dictionary, index: int) -> Button:
-	var button := Button.new()
+	var button: = Button.new()
 	button.text = choice.get("text", "Выбор %d" % (index + 1))
 	button.pressed.connect(_on_choice_button_pressed.bind(index))
 	
@@ -180,18 +180,18 @@ func show_photo_selection(photos: Array) -> void:
 	clear_photo_slots()
 	
 	for i in range(photos.size()):
-		var photo := photos[i]
-		var slot := create_photo_slot(photo, i)
+		var photo: = photos[i]
+		var slot: = create_photo_slot(photo, i)
 		if photo_slots_container:
 			photo_slots_container.add_child(slot)
 
 ## Создаёт слот для фото
 func create_photo_slot(photo: Dictionary, index: int) -> TextureButton:
-	var button := TextureButton.new()
+	var button: = TextureButton.new()
 	
 	# Здесь должна быть логика загрузки текстуры фото
 	# Для плейсхолдера используем цвет
-	var placeholder := ColorRect.new()
+	var placeholder: = ColorRect.new()
 	placeholder.custom_minimum_size = Vector2(150, 150)
 	placeholder.color = Color.from_string(photo.get("perception_type", "ENVIRONMENT"), Color.GRAY)
 	button.add_child(placeholder)
@@ -199,7 +199,7 @@ func create_photo_slot(photo: Dictionary, index: int) -> TextureButton:
 	button.pressed.connect(_on_photo_slot_pressed.bind(index))
 	
 	# Добавляем текст описания
-	var label := Label.new()
+	var label: = Label.new()
 	label.text = photo.get("flavor_text", "")[:30] + "..."
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD
 	label.custom_minimum_size = Vector2(150, 40)

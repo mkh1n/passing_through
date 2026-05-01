@@ -36,7 +36,7 @@ func _ready() -> void:
 # ==================== ФОТОГРАФИРОВАНИЕ ====================
 ## Создаёт фото из параметров сцены
 func capture_photo(scene_context: Dictionary, perception_type: int, flavor_text: String = "") -> Dictionary:
-	var photo := {
+	var photo: = {
 		"id": "photo_%d_%d" % [GameState.current_day, daily_photos.size()],
 		"day": GameState.current_day,
 		"scene_id": scene_context.get("id", "unknown"),
@@ -55,10 +55,10 @@ func capture_photo(scene_context: Dictionary, perception_type: int, flavor_text:
 
 ## Быстрое создание фото с выбором варианта (2-3 кадра восприятия)
 func capture_with_variants(scene_context: Dictionary, variants: Array) -> Array:
-	var photos := []
+	var photos: = []
 	
 	for variant in variants:
-		var photo := capture_photo(
+		var photo: = capture_photo(
 			scene_context,
 			variant.get("perception_type", PerceptionType.ENVIRONMENT),
 			variant.get("flavor_text", "")
@@ -76,7 +76,7 @@ func capture_with_variants(scene_context: Dictionary, variants: Array) -> Array:
 func start_daily_review() -> void:
 	if daily_photos.is_empty():
 		# Если нет фото, создаём пустое воспоминание
-		var empty_photo := create_empty_memory()
+		var empty_photo: = create_empty_memory()
 		daily_photos.append(empty_photo)
 	
 	daily_review_started.emit(daily_photos)
@@ -88,7 +88,7 @@ func select_for_memory(index: int) -> Dictionary:
 		push_error("[MemorySystem] Invalid photo index: %d" % index)
 		return {}
 	
-	var selected := daily_photos[index]
+	var selected: Dictionary = daily_photos[index]
 	selected["selected"] = true
 	
 	# Добавляем в глобальную память через GameState
@@ -119,7 +119,7 @@ func create_empty_memory() -> Dictionary:
 # ==================== ФИНАЛЬНЫЙ КОЛЛАЖ ====================
 ## Генерирует финальный коллаж из всех воспоминаний
 func generate_final_collage() -> Dictionary:
-	var collage := {
+	var collage: = {
 		"total_days": GameState.current_day - 1,
 		"total_memories": GameState.memory.size(),
 		"photos": GameState.memory,
@@ -133,14 +133,14 @@ func generate_final_collage() -> Dictionary:
 
 ## Определяет доминирующий тип восприятия
 func get_dominant_perception() -> String:
-	var counts := {}
+	var counts: = {}
 	
 	for photo in GameState.memory:
-		var ptype := photo.get("perception_type", "ENVIRONMENT")
+		var ptype: = photo.get("perception_type", "ENVIRONMENT")
 		counts[ptype] = counts.get(ptype, 0) + 1
 	
-	var max_count := 0
-	var dominant := "ENVIRONMENT"
+	var max_count: = 0
+	var dominant: = "ENVIRONMENT"
 	
 	for ptype in counts:
 		if counts[ptype] > max_count:
@@ -151,11 +151,11 @@ func get_dominant_perception() -> String:
 
 ## Генерирует текстовое резюме игры
 func generate_narrative_summary() -> String:
-	var archetype := GameState.get_dominant_archetype()
-	var track := GameState.get_dominant_track()
-	var perception := get_dominant_perception()
+	var archetype: = GameState.get_dominant_archetype()
+	var track: = GameState.get_dominant_track()
+	var perception: = get_dominant_perception()
 	
-	var summaries := {
+	var summaries: = {
 		"euphoric": "Ты видел мир в розовых очках. Каждый момент был наполнен светом.",
 		"obsessive": "Ты зацикливался на деталях. Мелочи становились важным.",
 		"cynic": "Ты смотрел на мир с подозрением. Ничто не было таким, каким казалось.",
@@ -170,7 +170,7 @@ func generate_narrative_summary() -> String:
 # ==================== АНАЛИЗ ПАМЯТИ ====================
 ## Анализирует паттерны выбора игрока
 func analyze_memory_patterns() -> Dictionary:
-	var analysis := {
+	var analysis: = {
 		"people_focus": 0,
 		"environment_focus": 0,
 		"emotion_focus": 0,
@@ -180,7 +180,7 @@ func analyze_memory_patterns() -> Dictionary:
 	}
 	
 	for photo in GameState.memory:
-		var ptype := photo.get("perception_type", "ENVIRONMENT")
+		var ptype: = photo.get("perception_type", "ENVIRONMENT")
 		
 		match ptype:
 			"PEOPLE":
@@ -193,7 +193,7 @@ func analyze_memory_patterns() -> Dictionary:
 				analysis["abstract_focus"] += 1
 		
 		# Анализ тональности по тексту
-		var text := photo.get("flavor_text", "").to_lower()
+		var text: = photo.get("flavor_text", "").to_lower()
 		if any_word_in_text(text, ["свет", "тепло", "радость", "смех"]):
 			analysis["positive_moments"] += 1
 		elif any_word_in_text(text, ["тьма", "холод", "боль", "страх"]):

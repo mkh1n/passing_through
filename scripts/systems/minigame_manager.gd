@@ -36,7 +36,7 @@ func start_minigame(minigame_type: String, context: Dictionary = {}) -> void:
 	# Сложность зависит от состояния игрока
 	difficulty_modifier = 1.0 - (GameState.player_state * 0.1)
 	
-	var scene := get_scene_for_type(minigame_type)
+	var scene: = get_scene_for_type(minigame_type)
 	if not scene:
 		push_error("[MinigameManager] Scene not found for type: %s" % minigame_type)
 		minigame_failed.emit("Scene not found")
@@ -94,7 +94,7 @@ func on_minigame_completed(success: bool, score: float = 0.0) -> void:
 ## Применяет эффекты успеха
 func apply_success_effects(score: float) -> void:
 	# Улучшаем состояние
-	var state_bonus := 1 if score > 0.7 else 0
+	var state_bonus: = 1 if score > 0.7 else 0
 	GameState.change_state(state_bonus)
 	
 	# Добавляем трек действия
@@ -102,7 +102,7 @@ func apply_success_effects(score: float) -> void:
 	
 	# Контекстные эффекты
 	if minigame_context.has("on_success"):
-		var effect := minigame_context["on_success"]
+		var effect: = minigame_context["on_success"]
 		
 		if effect.has("archetype_shift"):
 			for archetype in effect["archetype_shift"]:
@@ -115,7 +115,7 @@ func apply_failure_effects() -> void:
 	
 	# Контекстные эффекты
 	if minigame_context.has("on_fail"):
-		var effect := minigame_context["on_fail"]
+		var effect: = minigame_context["on_fail"]
 		
 		if effect.has("echo_event"):
 			# Добавляем событие в эхо

@@ -39,7 +39,7 @@ func _ready() -> void:
 func change_phase(new_phase: GamePhase) -> void:
 	current_phase = new_phase
 	
-	var phase_name := GamePhase.keys()[new_phase]
+	var phase_name: = GamePhase.keys()[new_phase]
 	phase_changed.emit(phase_name)
 	print("[GameManager] Phase changed to: %s" % phase_name)
 	
@@ -143,13 +143,13 @@ func _on_final_phase() -> void:
 	print("[GameManager] Final phase - Generating collage")
 	is_game_running = false
 	
-	var final_data := generate_final_results()
+	var final_data: = generate_final_results()
 	game_ended.emit(final_data)
 
 # ==================== ФИНАЛЬНЫЕ РЕЗУЛЬТАТЫ ====================
 ## Генерирует данные для финала
 func generate_final_results() -> Dictionary:
-	var collage := {}
+	var collage: = {}
 	
 	if MemorySystem:
 		collage = MemorySystem.generate_final_collage()
@@ -194,14 +194,14 @@ func on_photo_selected(photo_index: int) -> void:
 # ==================== СОХРАНЕНИЕ/ЗАГРУЗКА ====================
 ## Сохраняет игру
 func save_game(slot: int = 0) -> bool:
-	var save_data := {
+	var save_data: = {
 		"game_state": GameState.save_to_dict(),
 		"current_phase": GamePhase.keys()[current_phase],
 		"is_running": is_game_running
 	}
 	
-	var file_path := "user://save_%d.json" % slot
-	var file := FileAccess.open(file_path, FileAccess.WRITE)
+	var file_path: = "user://save_%d.json" % slot
+	var file: = FileAccess.open(file_path, FileAccess.WRITE)
 	
 	if not file:
 		push_error("[GameManager] Cannot save to %s" % file_path)
@@ -215,18 +215,18 @@ func save_game(slot: int = 0) -> bool:
 
 ## Загружает игру
 func load_game(slot: int = 0) -> bool:
-	var file_path := "user://save_%d.json" % slot
-	var file := FileAccess.open(file_path, FileAccess.READ)
+	var file_path: = "user://save_%d.json" % slot
+	var file: = FileAccess.open(file_path, FileAccess.READ)
 	
 	if not file:
 		push_error("[GameManager] Cannot load from %s" % file_path)
 		return false
 	
-	var json_string := file.get_as_text()
+	var json_string: = file.get_as_text()
 	file.close()
 	
-	var json := JSON.new()
-	var parse_result := json.parse(json_string)
+	var json: = JSON.new()
+	var parse_result: = json.parse(json_string)
 	
 	if parse_result != OK:
 		push_error("[GameManager] JSON parse error: %s" % json.get_error_message())
@@ -239,7 +239,7 @@ func load_game(slot: int = 0) -> bool:
 		GameState.load_from_dict(save_data["game_state"])
 	
 	# Восстанавливаем фазу
-	var phase_name := save_data.get("current_phase", "MENU")
+	var phase_name: = save_data.get("current_phase", "MENU")
 	for i in range(GamePhase.size()):
 		if GamePhase.keys()[i] == phase_name:
 			current_phase = i
