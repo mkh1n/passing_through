@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scene version="4.2" type="Node2D" xmlns:editor="http://godotengine.org/scene-editor">
+    <node name="Main" type="Node2D">
+        <node name="ParallaxBackground" type="ParallaxLayer">
+            <node name="BackgroundLayers" type="Node2D">
+                <node name="FarLayer" type="Sprite2D">
+                    <property name="texture" resource_type="Texture2D" path="res://assets/sprites/bg_far_placeholder.png" />
+                    <property name="modulate" type="Color">#ff969696</property>
+                    <property name="position" type="Vector2">960, 540</property>
+                </node>
+                <node name="MidLayer" type="Sprite2D">
+                    <property name="texture" resource_type="Texture2D" path="res://assets/sprites/bg_mid_placeholder.png" />
+                    <property name="modulate" type="Color">#ff969696</property>
+                    <property name="position" type="Vector2">960, 540</property>
+                </node>
+                <node name="NearLayer" type="Sprite2D">
+                    <property name="texture" resource_type="Texture2D" path="res://assets/sprites/bg_near_placeholder.png" />
+                    <property name="modulate" type="Color">#ff969696</property>
+                    <property name="position" type="Vector2">960, 540</property>
+                </node>
+            </node>
+        </node>
+        
+        <node name="Player" type="CharacterBody2D">
+            <property name="position" type="Vector2">960, 700</property>
+            <node name="CollisionShape2D" type="CollisionShape2D">
+                <property name="shape" resource_type="Shape2D">[RectangleShape2D,size:Vector2(50, 80)]</property>
+            </node>
+            <node name="Sprite2D" type="Sprite2D">
+                <property name="texture" resource_type="Texture2D" path="res://assets/sprites/player_placeholder.png" />
+                <property name="modulate" type="Color">#ff4a90d9</property>
+            </node>
+            <node name="Camera2D" type="Camera2D">
+                <property name="current" type="bool">true</property>
+                <property name="zoom" type="Vector2">1, 1</property>
+            </node>
+            <node name="PlayerController" type="Node" script="res://scripts/entities/player_controller.gd" />
+        </node>
+        
+        <node name="UI" type="CanvasLayer">
+            <node name="UIController" type="Node" script="res://scripts/ui/ui_controller.gd" />
+            
+            <!-- HUD -->
+            <node name="HUD" type="Control">
+                <property name="layout_mode" type="int">3</property>
+                <property name="anchors_preset" type="int">15</property>
+                <property name="anchor_right" type="float">1</property>
+                <property name="anchor_bottom" type="float">1</property>
+                <property name="grow_horizontal" type="int">2</property>
+                <property name="grow_vertical" type="int">2</property>
+                
+                <!-- Верхняя панель -->
+                <node name="TopBar" type="HBoxContainer">
+                    <property name="layout_mode" type="int">0</property>
+                    <property name="anchors_preset" type="int">10</property>
+                    <property name="anchor_right" type="float">1</property>
+                    <property name="offset_bottom" type="float">60</property>
+                    <property name="grow_horizontal" type="int">2</property>
+                    
+                    <node name="DayLabel" type="Label">
+                        <property name="text" type="string">День: 1</property>
+                        <property name="theme_override_colors/font_color" type="Color">#ffffffff</property>
+                        <property name="theme_override_font_sizes/font_size" type="int">24</property>
+                    </node>
+                    
+                    <node name="StateLabel" type="Label">
+                        <property name="text" type="string">Состояние: 0</property>
+                        <property name="theme_override_colors/font_color" type="Color">#ffffffff</property>
+                        <property name="theme_override_font_sizes/font_size" type="int">24</property>
+                    </node>
+                    
+                    <node name="ArchetypeLabel" type="Label">
+                        <property name="text" type="string">Архетип: nihilist</property>
+                        <property name="theme_override_colors/font_color" type="Color">#ffffffff</property>
+                        <property name="theme_override_font_sizes/font_size" type="int">24</property>
+                    </node>
+                </node>
+                
+                <!-- Нижняя панель -->
+                <node name="BottomBar" type="HBoxContainer">
+                    <property name="layout_mode" type="int">0</property>
+                    <property name="anchors_preset" type="int">12</property>
+                    <property name="anchor_right" type="float">1</property>
+                    <property name="anchor_bottom" type="float">1</property>
+                    <property name="offset_top" type="float">-60</property>
+                    <property name="grow_horizontal" type="int">2</property>
+                    <property name="grow_vertical" type="int">2</property>
+                    
+                    <node name="TrackAction" type="Label">
+                        <property name="text" type="string">Action: 0</property>
+                        <property name="theme_override_colors/font_color" type="Color">#ffff6b6b</property>
+                    </node>
+                    
+                    <node name="TrackObserve" type="Label">
+                        <property name="text" type="string">Observe: 0</property>
+                        <property name="theme_override_colors/font_color" type="Color">#ff4ecdc4</property>
+                    </node>
+                    
+                    <node name="TrackConnect" type="Label">
+                        <property name="text" type="string">Connect: 0</property>
+                        <property name="theme_override_colors/font_color" type="Color">#ff45b7d1</property>
+                    </node>
+                </node>
+            </node>
+            
+            <!-- Диалоговое окно -->
+            <node name="EventPanel" type="PanelContainer">
+                <property name="visible" type="bool">false</property>
+                <property name="layout_mode" type="int">1</property>
+                <property name="anchors_preset" type="int">8</property>
+                <property name="anchor_left" type="float">0.5</property>
+                <property name="anchor_top" type="float">0.5</property>
+                <property name="anchor_right" type="float">0.5</property>
+                <property name="anchor_bottom" type="float">0.5</property>
+                <property name="offset_left" type="float">-400</property>
+                <property name="offset_top" type="float">-250</property>
+                <property name="offset_right" type="float">400</property>
+                <property name="offset_bottom" type="float">250</property>
+                <property name="grow_horizontal" type="int">2</property>
+                <property name="grow_vertical" type="int">2</property>
+                
+                <node name="VBox" type="VBoxContainer">
+                    <property name="layout_mode" type="int">1</property>
+                    <property name="anchors_preset" type="int">15</property>
+                    <property name="anchor_right" type="float">1</property>
+                    <property name="anchor_bottom" type="float">1</property>
+                    <property name="grow_horizontal" type="int">2</property>
+                    <property name="grow_vertical" type="int">2</property>
+                    
+                    <node name="EventTitle" type="Label">
+                        <property name="text" type="string">Название события</property>
+                        <property name="theme_override_font_sizes/font_size" type="int">28</property>
+                        <property name="horizontal_alignment" type="int">1</property>
+                    </node>
+                    
+                    <node name="EventDescription" type="RichTextLabel">
+                        <property name="custom_minimum_size" type="Vector2">700, 200</property>
+                        <property name="layout_mode" type="int">0</property>
+                        <property name="text" type="string">Описание события...</property>
+                        <property name="bbcode_enabled" type="bool">true</property>
+                    </node>
+                    
+                    <node name="ChoicesContainer" type="VBoxContainer">
+                        <property name="layout_mode" type="int">0</property>
+                        <property name="alignment" type="int">1</property>
+                    </node>
+                </node>
+            </node>
+            
+            <!-- Фото выбор -->
+            <node name="PhotoSelectionPanel" type="PanelContainer">
+                <property name="visible" type="bool">false</property>
+                <property name="layout_mode" type="int">1</property>
+                <property name="anchors_preset" type="int">8</property>
+                <property name="anchor_left" type="float">0.5</property>
+                <property name="anchor_top" type="float">0.5</property>
+                <property name="anchor_right" type="float">0.5</property>
+                <property name="anchor_bottom" type="float">0.5</property>
+                <property name="offset_left" type="float">-450</property>
+                <property name="offset_top" type="float">-200</property>
+                <property name="offset_right" type="float">450</property>
+                <property name="offset_bottom" type="float">200</property>
+                
+                <node name="PhotoTitle" type="Label">
+                    <property name="text" type="string">Выбери фото для памяти</property>
+                    <property name="theme_override_font_sizes/font_size" type="int">24</property>
+                    <property name="horizontal_alignment" type="int">1</property>
+                </node>
+                
+                <node name="PhotosContainer" type="HBoxContainer">
+                    <property name="layout_mode" type="int">0</property>
+                    <property name="anchors_preset" type="int">15</property>
+                    <property name="anchor_right" type="float">1</property>
+                    <property name="anchor_bottom" type="float">1</property>
+                    <property name="offset_top" type="float">50</property>
+                    <property name="grow_horizontal" type="int">2</property>
+                    <property name="grow_vertical" type="int">2</property>
+                </node>
+            </node>
+            
+            <!-- Сообщение о мини-игре -->
+            <node name="MinigameMessage" type="Label">
+                <property name="visible" type="bool">false</property>
+                <property name="layout_mode" type="int">1</property>
+                <property name="anchors_preset" type="int">8</property>
+                <property name="anchor_left" type="float">0.5</property>
+                <property name="anchor_top" type="float">0.5</property>
+                <property name="anchor_right" type="float">0.5</property>
+                <property name="anchor_bottom" type="float">0.5</property>
+                <property name="offset_left" type="float">-200</property>
+                <property name="offset_top" type="float">-30</property>
+                <property name="offset_right" type="float">200</property>
+                <property name="offset_bottom" type="float">30</property>
+                <property name="text" type="string">Мини-игра!</property>
+                <property name="horizontal_alignment" type="int">1</property>
+                <property name="vertical_alignment" type="int">1</property>
+            </node>
+        </node>
+    </node>
+</scene>
