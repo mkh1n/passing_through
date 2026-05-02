@@ -5,7 +5,7 @@ extends CharacterBody2D
 signal player_moved(direction: float)
 signal photo_requested()
 
-@export var speed: float = 200.0
+@export var speed: float = 2.0
 @export var acceleration: float = 800.0
 @export var friction: float = 1000.0
 
