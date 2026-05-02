@@ -1,38 +1,27 @@
 ```
-# Godot-specific ignores
+# Compiled and build artifacts
 *.import
-*.pidb
-export_presets.cfg
-.autosave/
-.user/
-.editor/
-# Build artifacts
-*.so
-*.dll
-*.dylib
-*.exe
 *.bin
+*.res
+
 # Dependencies
-node_modules/
-.venv/
-venv/
-__pycache__/
-.mypy_cache/
-.pytest_cache/
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-# Logs
+godot/
+
+# Logs and temp files
 *.log
-# Coverage
-coverage/
-htmlcov/
-.coverage
+*.tmp
+
 # Environment
 .env
 .env.local
 *.env.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Build and cache
+.cache/
+temp/
 ```
