@@ -3,7 +3,7 @@ extends Node
 ## Загружает события из JSON, фильтрует по контексту, управляет эхо-системой
 
 signal event_loaded(event_data: Dictionary)
-signal choices_presented(choices: Array[Dictionary])
+signal choices_presented(choices: Array)
 signal event_completed(result: Dictionary)
 signal minigame_requested(minigame_type: String, difficulty: float)
 signal minigame_result(success: bool)
@@ -203,7 +203,7 @@ func start_event(event: Dictionary) -> void:
 ## Представление выборов игроку
 func present_choices(event: Dictionary) -> void:
 	var choices_raw: Array = event.get("choices", [])
-	var choices: Array[Dictionary] = []
+	var choices: Array = []
 	for choice in choices_raw:
 		if choice is Dictionary:
 			choices.append(choice)
