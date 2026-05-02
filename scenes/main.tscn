@@ -18,6 +18,7 @@ script = ExtResource("1_player")
 texture = ExtResource("4_player_sprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = RectangleShape2D.new()
 
 [node name="ParallaxBackground" type="Node2D" parent="."]
 script = ExtResource("3_parallax")
@@ -96,6 +97,7 @@ texture = ExtResource("7_bg_near")
 script = ExtResource("2_ui")
 
 [node name="DayLabel" type="Label" parent="UI"]
+visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 200.0
@@ -103,6 +105,7 @@ offset_bottom = 50.0
 text = "День 1"
 
 [node name="StateLabel" type="Label" parent="UI"]
+visible = false
 offset_left = 20.0
 offset_top = 60.0
 offset_right = 200.0
@@ -110,6 +113,7 @@ offset_bottom = 90.0
 text = "Состояние: Нейтральное"
 
 [node name="ArchetypeLabel" type="Label" parent="UI"]
+visible = false
 offset_left = 20.0
 offset_top = 100.0
 offset_right = 200.0

@@ -1,6 +1,7 @@
 ```
 # Godot-specific ignores
 *.import
+*.pidb
 export_presets.cfg
 .autosave/
 .user/
