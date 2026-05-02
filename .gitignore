@@ -1,1 +1,38 @@
-Nothing should be ignored in this case, as the modified files are all image assets (.png files) which are legitimate source files that should be tracked in version control. No build artifacts, dependencies, or temporary files are present in the changes.
+```
+# Godot-specific ignores
+*.import
+*.pidb
+export_presets.cfg
+.autosave/
+.user/
+.editor/
+# Build artifacts
+*.so
+*.dll
+*.dylib
+*.exe
+*.bin
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+# Logs
+*.log
+# Coverage
+coverage/
+htmlcov/
+.coverage
+# Environment
+.env
+.env.local
+*.env.*
+```

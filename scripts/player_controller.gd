@@ -1,6 +1,6 @@
 extends CharacterBody2D
 ## PlayerController - Управление игроком
-## Игрок всегда в центре экрана, двигается фон и объекты мира
+## Игрок всегда в центре, двигается фон и объекты мира
 
 signal player_moved(direction: float)
 signal photo_requested()
@@ -13,21 +13,12 @@ var is_moving: bool = false
 var current_speed: float = 0.0
 var can_take_photo: bool = false
 var near_interactable: bool = false
-var start_position: Vector2
-
-
-func _ready() -> void:
-	# Сохраняем начальную позицию игрока (центр экрана)
-	start_position = position
-	# Игрок всегда в центре - его позиция не меняется по X
-	position.x = 960
 
 
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	check_nearby_objects()
-	# Не вызываем move_and_slide() так как игрок не двигается физически
-	# Движение эмулируется через сигнал для фона
+	move_and_slide()
 
 
 ## Обработка ввода и движения
@@ -53,44 +44,48 @@ func handle_movement(delta: float) -> void:
 		$Sprite2D.flip_h = true
 	
 	# Сигнал для движения фона (противоположное направление)
-	# Когда игрок идет вправо (positive), фон движется влево (negative)
 	if current_speed != 0:
-		player_moved.emit(current_speed)
+		player_moved.emit(-current_speed)
 
 
 ## Проверка объектов рядом для взаимодействия
 func check_nearby_objects() -> void:
-	# Проверяем расстояние до объектов мира (автобусная остановка и т.д.)
-	near_interactable = false
-	can_take_photo = false
+	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
 	
-	# Находим все объекты в группе interactables
-	var tree = get_tree()
-	if tree:
-		for node in tree.get_nodes_in_group("interactables"):
-			if node is Area2D or node.has_node("Sprite2D"):
-				var obj_pos: Vector2 = node.global_position
-				var distance = abs(obj_pos.x - global_position.x)
-				
-				# Если объект близко (в пределах 150 пикселей)
-				if distance < 150:
-					near_interactable = true
-					if node.has_method("can_take_photo"):
-						can_take_photo = node.can_take_photo()
+	# Проверяем область перед игроком
+	var query_from = global_position + Vector2(-20, 0)
+	var query_to = global_position + Vector2(100, 0)
+	
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(query_from, query_to)
+	query.exclude = [self]
+	query.collision_mask = 2 # world layer
+	
+	var result: Dictionary = space_state.intersect_ray(query)
+	if result:
+		var collider: Node = result.collider
+		near_interactable = collider.is_in_group("interactables") or collider.has_method("can_take_photo")
+		can_take_photo = collider.has_method("can_take_photo") and collider.can_take_photo()
+	else:
+		near_interactable = false
+		can_take_photo = false
 
 
 ## Взаимодействие с объектами мира
 func interact() -> void:
 	if near_interactable:
-		var tree = get_tree()
-		if tree:
-			for node in tree.get_nodes_in_group("interactables"):
-				var obj_pos: Vector2 = node.global_position
-				var distance = abs(obj_pos.x - global_position.x)
-				if distance < 150:
-					if node.has_method("interact"):
-						node.interact()
-					break
+		var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(
+			global_position,
+			global_position + Vector2(100, 0)
+		)
+		query.exclude = [self]
+		query.collision_mask = 2
+		
+		var result: Dictionary = space_state.intersect_ray(query)
+		if result:
+			var collider: Node = result.collider
+			if collider.has_method("interact"):
+				collider.interact()
 
 
 ## Запуск мини-игры (если требуется событием)
