@@ -141,7 +141,7 @@ func select_memory(index: int) -> Dictionary:
 	if index < 0 or index >= daily_photos.size():
 		return {}
 	
-	var selected: Variant = daily_photos[index]
+	var selected: Dictionary = daily_photos[index]
 	daily_photos.clear()
 	memory.append(selected)
 	return selected

@@ -1,29 +1,19 @@
+```
 # Godot-specific ignores
 *.import
-*.pid
-*.tmp
-*.lock
-.rsync_exclude
-.user
-.autoload_ids
-.editor
-.godot/
-
-# Build artifacts
+*.remap
 export_presets.cfg
-
-# Platform-specific files
-*.dylib
+.godot/
+# Build artifacts
 *.so
 *.dll
 *.exe
-*.app
-
+*.dylib
+*.pdb
+# Dependencies
+res://addons/
+# Logs
+*.log
 # Temp files
 *.tmp
-*.temp
-*.log
-
-# User settings (if not intended to be shared)
-.scenes
-.editor_settings-4.tres
+```

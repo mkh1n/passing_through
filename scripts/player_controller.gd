@@ -40,14 +40,14 @@ func handle_movement(delta: float) -> void:
 ## Взаимодействие с объектами мира
 func interact() -> void:
 	# Проверка на наличие интерактивных объектов рядом
-	var space_state := get_world_2d().direct_space_state
-	var query := PhysicsRayQueryParameters2D.create(
+	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(
 		global_position,
 		global_position + Vector2(current_speed, 0).normalized() * 50
 	)
 	query.exclude = [self]
 	
-	var result := space_state.intersect_ray(query)
+	var result: Dictionary = space_state.intersect_ray(query)
 	if result:
 		var collider: Node = result.collider
 		if collider.has_method("interact"):

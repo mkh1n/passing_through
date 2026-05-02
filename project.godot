@@ -58,3 +58,8 @@ photo_trigger={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="compatibility"
+
+[debug_settings]
+
+gdscript/warnings/variant_as_variant=0
+gdscript/warnings/treat_warnings_as_errors=false

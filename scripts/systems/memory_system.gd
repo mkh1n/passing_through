@@ -122,7 +122,7 @@ func get_dominant_perception() -> String:
 
 ## Анализ памяти для финала
 func analyze_memory() -> Dictionary:
-	var analysis := {
+	var analysis: Dictionary = {
 		"total_days": full_memory.size(),
 		"perception_distribution": perception_stats.duplicate(),
 		"emotion_frequency": {},
@@ -162,9 +162,9 @@ func reset_memory() -> void:
 
 ## Сохранение памяти в файл (опционально)
 func save_memory_to_file(path: String = "user://memory_save.json") -> void:
-	var file := FileAccess.open(path, FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)
 	if file:
-		var data: Variant = {
+		var data: Dictionary = {
 			"full_memory": full_memory,
 			"perception_stats": perception_stats
 		}
@@ -178,11 +178,11 @@ func load_memory_from_file(path: String = "user://memory_save.json") -> bool:
 	if not FileAccess.file_exists(path):
 		return false
 	
-	var file := FileAccess.open(path, FileAccess.READ)
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	if file:
-		var json_string := file.get_as_text()
-		var json := JSON.new()
-		var error := json.parse(json_string)
+		var json_string: String = file.get_as_text()
+		var json: JSON = JSON.new()
+		var error: Error = json.parse(json_string)
 		if error == OK:
 			var data: Variant = json.data
 			full_memory = data.get("full_memory", [])
