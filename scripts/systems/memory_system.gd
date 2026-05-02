@@ -160,6 +160,77 @@ func reset_memory() -> void:
 	}
 
 
+## Сохранение игры (полное состояние)
+func save_game(slot: int = 0) -> Error:
+	var save_data: Dictionary = {
+		"version": "1.0",
+		"timestamp": Time.get_datetime_string_from_system(),
+		"game_state": {
+			"current_day": GameState.current_day,
+			"state": GameState.state,
+			"action_track": GameState.action_track,
+			"observe_track": GameState.observe_track,
+			"connect_track": GameState.connect_track,
+			"archetype_weights": GameState.archetype_weights,
+			"echo_events": GameState.echo_events,
+			"current_lens": GameState.current_lens,
+			"daily_photos": daily_photos,
+			"selected_memory": selected_memory
+		},
+		"memory": {
+			"full_memory": full_memory,
+			"perception_stats": perception_stats
+		}
+	}
+	
+	var file: FileAccess = FileAccess.open("user://save_slot_%d.save" % slot, FileAccess.WRITE)
+	if not file:
+		print("Ошибка сохранения: ", FileAccess.get_open_error())
+		return FileAccess.get_open_error()
+	
+	file.store_var(save_data)
+	file.close()
+	print("Игра сохранена в слот %d" % slot)
+	return OK
+
+
+## Загрузка игры (полное состояние)
+func load_game(slot: int = 0) -> Dictionary:
+	var file: FileAccess = FileAccess.open("user://save_slot_%d.save" % slot, FileAccess.READ)
+	if not file:
+		print("Ошибка загрузки: файл не найден")
+		return {}
+	
+	var save_data: Dictionary = file.get_var()
+	file.close()
+	
+	# Восстановление GameState
+	var gs: Dictionary = save_data.get("game_state", {})
+	GameState.current_day = gs.get("current_day", 1)
+	GameState.state = gs.get("state", 0)
+	GameState.action_track = gs.get("action_track", 0)
+	GameState.observe_track = gs.get("observe_track", 0)
+	GameState.connect_track = gs.get("connect_track", 0)
+	GameState.archetype_weights = gs.get("archetype_weights", {})
+	GameState.echo_events = gs.get("echo_events", [])
+	GameState.current_lens = gs.get("current_lens", "observation")
+	daily_photos = gs.get("daily_photos", [])
+	selected_memory = gs.get("selected_memory", {})
+	
+	# Восстановление MemorySystem
+	var mem: Dictionary = save_data.get("memory", {})
+	full_memory = mem.get("full_memory", [])
+	perception_stats = mem.get("perception_stats", {"participation": 0, "observation": 0, "connection": 0})
+	
+	print("Игра загружена из слота %d, день %d" % [slot, GameState.current_day])
+	return save_data
+
+
+## Проверка наличия сохранения
+func has_save(slot: int = 0) -> bool:
+	return FileAccess.file_exists("user://save_slot_%d.save" % slot)
+
+
 ## Сохранение памяти в файл (опционально)
 func save_memory_to_file(path: String = "user://memory_save.json") -> void:
 	var file: FileAccess = FileAccess.open(path, FileAccess.WRITE)

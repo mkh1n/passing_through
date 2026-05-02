@@ -178,7 +178,7 @@ func format_event_text(event_data: Dictionary) -> String:
 	return base_text
 
 
-func _on_choices_presented(choices: Array[Dictionary]) -> void:
+func _on_choices_presented(choices: Array) -> void:
 	_clear_children(choices_container)
 	
 	for i in range(choices.size()):
