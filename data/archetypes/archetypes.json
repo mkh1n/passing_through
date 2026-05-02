@@ -1,0 +1,58 @@
+{
+	"euphoric": {
+		"name": "Эйфорик",
+		"description": "Видит мир в розовом свете, ищет радость в мелочах",
+		"text_modifier": "bright",
+		"color_tint": [1.0, 0.85, 0.7, 0.25],
+		"audio_filter": "highpass",
+		"final_interpretation": "Ты нашёл свет даже в самые тёмные дни."
+	},
+	"obsessive": {
+		"name": "Одержимый",
+		"description": "Фокусируется на деталях, замечает то что другие пропускают",
+		"text_modifier": "detailed",
+		"color_tint": [0.75, 0.6, 0.9, 0.25],
+		"audio_filter": "lowpass",
+		"final_interpretation": "Ты видел узор там где другие видели хаос."
+	},
+	"cynic": {
+		"name": "Циник",
+		"description": "Смотрит на мир с иронией, не доверяет поверхностному",
+		"text_modifier": "ironic",
+		"color_tint": [0.6, 0.6, 0.6, 0.3],
+		"audio_filter": "distortion",
+		"final_interpretation": "Ты знал цену всему, но не всем вещам."
+	},
+	"fleeing": {
+		"name": "Беглец",
+		"description": "Избегает прямого контакта, предпочитает наблюдать со стороны",
+		"text_modifier": "distant",
+		"color_tint": [0.65, 0.75, 0.9, 0.25],
+		"audio_filter": "reverb",
+		"final_interpretation": "Ты прошёл сквозь мир не коснувшись его."
+	},
+	"healer": {
+		"name": "Целитель",
+		"description": "Ищет возможности помочь, видит боль других",
+		"text_modifier": "caring",
+		"color_tint": [0.65, 0.9, 0.7, 0.25],
+		"audio_filter": "warmth",
+		"final_interpretation": "Ты оставил после себя больше света чем нашёл."
+	},
+	"nihilist": {
+		"name": "Нигилист",
+		"description": "Не видит смысла в происходящем, плывёт по течению",
+		"text_modifier": "empty",
+		"color_tint": [0.4, 0.4, 0.4, 0.35],
+		"audio_filter": "muffle",
+		"final_interpretation": "Ты понял что смысл — это то что ты создаёшь сам."
+	},
+	"selfharm": {
+		"name": "Самоповреждающий",
+		"description": "Склонен к саморазрушению, видит в мире угрозу",
+		"text_modifier": "dark",
+		"color_tint": [0.85, 0.4, 0.5, 0.3],
+		"audio_filter": "dissonance",
+		"final_interpretation": "Ты выжил несмотря на войну внутри себя."
+	}
+}
