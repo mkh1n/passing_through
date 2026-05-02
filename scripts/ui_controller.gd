@@ -62,12 +62,12 @@ func _on_event_loaded(event_data: Dictionary) -> void:
 
 ## Форматирование текста события с учётом архетипа
 func format_event_text(event_data: Dictionary) -> String:
-	var base_text := event_data.get("text", "")
-	var archetype := GameState.get_dominant_archetype()
-	var lens := GameState.current_lens
+	var base_text: String = event_data.get("text", "")
+	var archetype: String = GameState.get_dominant_archetype()
+	var lens: String = GameState.current_lens
 	
 	# Применение модификаторов текста в зависимости от архетипа и линзы
-	var modified_text := base_text
+	var modified_text: String = base_text
 	
 	# Здесь можно добавить логику замены ключевых слов
 	# Например: {emotion} -> разное описание для разных архетипов
@@ -81,7 +81,7 @@ func _on_choices_presented(choices: Array[Dictionary]) -> void:
 	
 	for i in range(choices.size()):
 		var choice: Dictionary = choices[i]
-		var button := Button.new()
+		var button: Button = Button.new()
 		button.text = choice.get("text", "Выбор " + str(i + 1))
 		button.custom_minimum_size = Vector2(300, 50)
 		button.pressed.connect(_on_choice_button_pressed.bind(i))
@@ -115,14 +115,14 @@ func show_photo_selection() -> void:
 	photo_panel.show()
 	_clear_children(photo_container)
 	
-	var photos := GameState.daily_photos
+	var photos: Array[Dictionary] = GameState.daily_photos
 	if photos.is_empty():
 		# Генерация дефолтных вариантов
 		photos = MemorySystem.generate_photo_options(current_event, GameState.current_lens)
 	
 	for i in range(photos.size()):
 		var photo: Dictionary = photos[i]
-		var button := Button.new()
+		var button: Button = Button.new()
 		button.text = photo.get("description", "Фото " + str(i + 1))
 		button.custom_minimum_size = Vector2(250, 150)
 		button.pressed.connect(_on_photo_button_pressed.bind(i))
@@ -148,7 +148,7 @@ func check_day_completion() -> void:
 
 ## Обновление отображения состояния
 func _on_state_changed(new_state: int) -> void:
-	var state_text := "Состояние: "
+	var state_text: String = "Состояние: "
 	match new_state:
 		-2: state_text += "Критическое"
 		-1: state_text += "Плохое"
@@ -167,7 +167,7 @@ func _on_day_started(day: int) -> void:
 
 ## Обновление отображения архетипа
 func update_archetype_display() -> void:
-	var archetype := GameState.get_dominant_archetype()
+	var archetype: String = GameState.get_dominant_archetype()
 	archetype_label.text = "Архетип: " + archetype.capitalize()
 
 

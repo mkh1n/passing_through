@@ -149,30 +149,34 @@ func get_available_events(context: Dictionary) -> Array[Dictionary]:
 
 ## Проверка доступности события
 func is_event_available(event: Dictionary, context: Dictionary) -> bool:
-	var event_id := event.get("id", "")
+	var event_id: String = event.get("id", "")
 	
 	# Проверка дня
-	var day_min := event.get("day_min", 1)
-	var day_max := event.get("day_max", 15)
+	var day_min: int = event.get("day_min", 1)
+	var day_max: int = event.get("day_max", 15)
 	if GameState.current_day < day_min or GameState.current_day > day_max:
 		return false
 	
 	# Проверка состояния
-	var state_req := event.get("state_requirement", null)
+	var state_req: Variant = event.get("state_requirement", null)
 	if state_req != null:
-		if GameState.state < state_req.get("min", -2) or GameState.state > state_req.get("max", 2):
+		var min_state: int = state_req.get("min", -2) if state_req is Dictionary else -2
+		var max_state: int = state_req.get("max", 2) if state_req is Dictionary else 2
+		if GameState.state < min_state or GameState.state > max_state:
 			return false
 	
 	# Проверка треков
-	var track_req := event.get("track_requirement", null)
-	if track_req != null:
-		var track_value = 0
-		match track_req.get("type", ""):
+	var track_req: Variant = event.get("track_requirement", null)
+	if track_req != null and track_req is Dictionary:
+		var track_type: String = track_req.get("type", "")
+		var track_value: int = 0
+		match track_type:
 			"action": track_value = GameState.action_track
 			"observe": track_value = GameState.observe_track
 			"connect": track_value = GameState.connect_track
 		
-		if track_value < track_req.get("min", 0):
+		var min_required: int = track_req.get("min", 0)
+		if track_value < min_required:
 			return false
 	
 	# Проверка на уже пройденное (если не эхо)
@@ -201,7 +205,7 @@ func present_choices(event: Dictionary) -> void:
 	var choices: Array[Dictionary] = event.get("choices", [])
 	
 	# Модификация текстов выборов в зависимости от архетипа
-	var dominant_archetype := GameState.get_dominant_archetype()
+	var dominant_archetype: String = GameState.get_dominant_archetype()
 	var archetype_data: Dictionary = archetypes_db.get(dominant_archetype, {})
 	
 	for choice in choices:
@@ -222,7 +226,7 @@ func make_choice(choice_index: int) -> void:
 		return
 	
 	var choice: Dictionary = choices[choice_index]
-	var result := process_choice_outcome(choice)
+	var result: Dictionary = process_choice_outcome(choice)
 	
 	event_completed.emit(result)
 	
@@ -233,7 +237,7 @@ func make_choice(choice_index: int) -> void:
 	# Мини-игра, если требуется
 	if choice.get("minigame", null):
 		var minigame_type: String = choice.minigame.get("type", "focus")
-		var difficulty := calculate_minigame_difficulty(choice.minigame)
+		var difficulty: float = calculate_minigame_difficulty(choice.minigame)
 		minigame_requested.emit(minigame_type, difficulty)
 
 
@@ -242,7 +246,7 @@ func calculate_minigame_difficulty(minigame_data: Dictionary) -> float:
 	var base_difficulty: float = minigame_data.get("base_difficulty", 0.5)
 	
 	# Корректировка по состоянию
-	var state_factor := float(GameState.state + 2) / 4.0 # 0.0 to 1.0
+	var state_factor: float = float(GameState.state + 2) / 4.0 # 0.0 to 1.0
 	base_difficulty -= state_factor * 0.3 # Уменьшаем сложность при хорошем состоянии
 	
 	return clamp(base_difficulty, 0.2, 0.9)
@@ -250,7 +254,7 @@ func calculate_minigame_difficulty(minigame_data: Dictionary) -> float:
 
 ## Обработка последствий выбора
 func process_choice_outcome(choice: Dictionary) -> Dictionary:
-	var result := {
+	var result: Dictionary = {
 		"success": true,
 		"state_change": choice.get("state_change", 0),
 		"track_changes": choice.get("track_changes", {}),
@@ -293,6 +297,7 @@ func handle_minigame_result(success: bool) -> void:
 	# Поиск выбора с мини-игрой
 	for choice in current_event.get("choices", []):
 		if choice.has("minigame"):
-			var outcome: Dictionary = choice.minigame.get("success_outcome" if success else "fail_outcome", {})
+			var outcome_key: String = "success_outcome" if success else "fail_outcome"
+			var outcome: Dictionary = choice.minigame.get(outcome_key, {})
 			process_choice_outcome(outcome)
 			break
