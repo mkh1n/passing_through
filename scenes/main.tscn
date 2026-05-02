@@ -21,97 +21,97 @@ size = Vector2(32, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_busstop_collision"]
 size = Vector2(64, 64)
 
-[node name="Main" type="Node2D" unique_id=1417103578]
+[node name="Main" type="Node2D"]
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=585365786]
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(960, 700)
 script = ExtResource("1_player")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1574476761]
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("4_player_sprite")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=110160086]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_player_collision")
 
-[node name="ParallaxBackground" type="Node2D" parent="." unique_id=1086205748]
+[node name="ParallaxBackground" type="Node2D" parent="."]
 script = ExtResource("3_parallax")
 
-[node name="WorldObjects" type="Node2D" parent="ParallaxBackground" unique_id=425417210]
+[node name="WorldObjects" type="Node2D" parent="ParallaxBackground"]
 
-[node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects" unique_id=1353744496]
+[node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects"]
 position = Vector2(1500, 700)
 script = ExtResource("13_busstop")
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop" unique_id=1468215895]
-texture = ExtResource("7_bg_near")
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop"]
+texture = ExtResource("7_bg2")  # Fixed: using existing texture ID
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/WorldObjects/BusStop" unique_id=466212558]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/WorldObjects/BusStop"]
 shape = SubResource("RectangleShape2D_busstop_collision")
 
-[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1245230127]
+[node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
 
-[node name="Sprite1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1" unique_id=411357807]
-texture = ExtResource("5_bg_far")
+[node name="Sprite1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
+texture = ExtResource("5_bg0")  # Fixed
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=460569913]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.2, 0)
 
-[node name="Sprite2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=1772461820]
-texture = ExtResource("5_bg_far")
+[node name="Sprite2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("6_bg1")  # Fixed
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=2142007776]
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0)
 
-[node name="Sprite3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=98855561]
-texture = ExtResource("5_bg_far")
+[node name="Sprite3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("7_bg2")  # Fixed
 
-[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1871714785]
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.4, 0)
 
-[node name="Sprite4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=404653840]
-texture = ExtResource("5_bg_far")
+[node name="Sprite4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("8_bg3")  # Fixed
 
-[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1366461674]
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0)
 
-[node name="Sprite5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=973437324]
-texture = ExtResource("5_bg_far")
+[node name="Sprite5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+texture = ExtResource("9_bg4")  # Fixed
 
-[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1945433099]
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.6, 0)
 
-[node name="Sprite6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=78789139]
-texture = ExtResource("5_bg_far")
+[node name="Sprite6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+texture = ExtResource("10_bg5")  # Fixed
 
-[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1674167205]
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.7, 0)
 
-[node name="Sprite7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7" unique_id=1972396982]
-texture = ExtResource("5_bg_far")
+[node name="Sprite7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
+texture = ExtResource("11_bg6")  # Fixed
 
-[node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1055570291]
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.8, 0)
 
-[node name="Sprite8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8" unique_id=311308245]
-texture = ExtResource("5_bg_far")
+[node name="Sprite8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8"]
+texture = ExtResource("12_bg7")  # Fixed
 
-[node name="ParallaxLayerFG1" type="ParallaxLayer" parent="ParallaxBackground" unique_id=259065939]
+[node name="ParallaxLayerFG1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.2, 0)
 
-[node name="SpriteFG1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1" unique_id=1841687018]
-texture = ExtResource("6_bg_mid")
+[node name="SpriteFG1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1"]
+texture = ExtResource("8_bg3")  # Changed to existing texture
 
-[node name="ParallaxLayerFG2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1647955740]
+[node name="ParallaxLayerFG2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.5, 0)
 
-[node name="SpriteFG2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2" unique_id=1044816441]
-texture = ExtResource("7_bg_near")
+[node name="SpriteFG2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2"]
+texture = ExtResource("9_bg4")  # Changed to existing texture
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=776220131]
+[node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("2_ui")
 
-[node name="DayLabel" type="Label" parent="UI" unique_id=199368281]
+[node name="DayLabel" type="Label" parent="UI"]
 visible = false
 offset_left = 20.0
 offset_top = 20.0
@@ -119,7 +119,7 @@ offset_right = 200.0
 offset_bottom = 50.0
 text = "День 1"
 
-[node name="StateLabel" type="Label" parent="UI" unique_id=598880607]
+[node name="StateLabel" type="Label" parent="UI"]
 visible = false
 offset_left = 20.0
 offset_top = 60.0
@@ -127,7 +127,7 @@ offset_right = 200.0
 offset_bottom = 90.0
 text = "Состояние: Нейтральное"
 
-[node name="ArchetypeLabel" type="Label" parent="UI" unique_id=531013061]
+[node name="ArchetypeLabel" type="Label" parent="UI"]
 visible = false
 offset_left = 20.0
 offset_top = 100.0
@@ -135,14 +135,14 @@ offset_right = 200.0
 offset_bottom = 130.0
 text = "Архетип: -"
 
-[node name="EventPanel" type="Panel" parent="UI" unique_id=1743936906]
+[node name="EventPanel" type="Panel" parent="UI"]
 visible = false
 offset_left = 400.0
 offset_top = 200.0
 offset_right = 880.0
 offset_bottom = 520.0
 
-[node name="EventText" type="RichTextLabel" parent="UI/EventPanel" unique_id=604545734]
+[node name="EventText" type="RichTextLabel" parent="UI/EventPanel"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
@@ -150,21 +150,21 @@ offset_right = 460.0
 offset_bottom = 200.0
 text = "Текст события..."
 
-[node name="ChoicesContainer" type="VBoxContainer" parent="UI/EventPanel" unique_id=1840748556]
+[node name="ChoicesContainer" type="VBoxContainer" parent="UI/EventPanel"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 220.0
 offset_right = 460.0
 offset_bottom = 300.0
 
-[node name="PhotoPanel" type="Panel" parent="UI" unique_id=2036374094]
+[node name="PhotoPanel" type="Panel" parent="UI"]
 visible = false
 offset_left = 300.0
 offset_top = 300.0
 offset_right = 980.0
 offset_bottom = 600.0
 
-[node name="PhotoContainer" type="HBoxContainer" parent="UI/PhotoPanel" unique_id=141063626]
+[node name="PhotoContainer" type="HBoxContainer" parent="UI/PhotoPanel"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
