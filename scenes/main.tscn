@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://main_scene"]
+[gd_scene load_steps=10 format=3 uid="uid://main_scene"]
 
 [ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/ui_controller.gd" id="2_ui"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/bg_far_placeholder.png" id="5_bg_far"]
 [ext_resource type="Texture2D" path="res://assets/sprites/bg_mid_placeholder.png" id="6_bg_mid"]
 [ext_resource type="Texture2D" path="res://assets/sprites/bg_near_placeholder.png" id="7_bg_near"]
+[ext_resource type="Script" path="res://scripts/systems/bus_stop.gd" id="8_busstop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player_collision"]
 size = Vector2(32, 64)
@@ -33,6 +34,7 @@ script = ExtResource("3_parallax")
 
 [node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects"]
 position = Vector2(1500, 700)
+script = ExtResource("8_busstop")
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop"]
 texture = ExtResource("7_bg_near")
