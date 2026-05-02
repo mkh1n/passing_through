@@ -1,27 +1,56 @@
 ```
-# Compiled and build artifacts
+# Godot-specific ignores
 *.import
-*.bin
-*.res
+*.remap
+.project
+.editor
+.autoload_singleton
+.godot/
+
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+*.so
+*.dll
+*.exe
+*.class
+*.jar
+*.war
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
 
 # Dependencies
-godot/
+node_modules/
+venv/
+.venv/
+.env
+.env.local
+.env.*
+target/
+.gradle/
+.mypy_cache/
+.pytest_cache/
+coverage/
+htmlcov/
+.coverage
 
 # Logs and temp files
 *.log
 *.tmp
-
-# Environment
-.env
-.env.local
-*.env.*
+*.swp
+*.swo
 
 # Editors
 .vscode/
 .idea/
 *.swp
+*.swo
 
-# Build and cache
-.cache/
-temp/
+# System files
+.DS_Store
+Thumbs.db
 ```
