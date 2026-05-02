@@ -3,27 +3,20 @@
 *.pid
 *.tmp
 *.lock
-.rsync_exclude
-.user
-.autoload_ids
-.editor
-.godot/
 
 # Build artifacts
 export_presets.cfg
 
-# Platform-specific files
-*.dylib
-*.so
-*.dll
-*.exe
-*.app
+# Editor
+.vscode/
+.idea/
 
-# Temp files
-*.tmp
-*.temp
+# Dependencies
+.addons/
+
+# Logs
 *.log
 
-# User settings (if not intended to be shared)
-.scenes
-.editor_settings-4.tres
+# Temporary files
+*.tmp
+```
