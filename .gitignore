@@ -1,84 +1,79 @@
 ```
 # Godot-specific ignores
 *.import
-*.remap
-.project
-.editor
-.autoload.gd
-.godot/
+*.uid
+export_presets.cfg
+.autoload_singleton.gd
+.editor/
 
-# Compiled and build artifacts
-*.pyc
-__pycache__/
-*.o
-*.obj
-*.so
-*.dll
+# Build artifacts
 *.exe
-*.class
-*.out
+*.dll
+*.so
+*.dylib
+*.app
+*.apk
+*.aab
+*.zip
+*.tar
+*.gz
+*.bz2
+*.xz
 
-# Dependencies
-.venv/
-venv/
+# Dependencies and virtual environments
 node_modules/
-target/
-.gradle/
-.mypy_cache/
-.pytest_cache/
-build/
-dist/
+venv/
+.venv/
+__pycache__/
 *.egg-info/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
 
-# Logs and temp files
-*.log
-*.tmp
-*.swp
-*.swo
-*.bak
-*.~*
-
-# Environment
-.env
-.env.local
-.env.*
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
+# System files
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Icon?
+.directory
+.Trashes
+*.swp
+*.swo
+*~
 
-# Coverage
+# Logs
+*.log
+
+# Coverage reports
 coverage/
 htmlcov/
 .coverage
+*.cover
 
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.zst
+# Environment variables
+.env
+.env.local
+.env.*
+!.env.example
+
+# IDE specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+nbproject/
+.settings/
+*.tmproj
+*.xcworkspace
+*.xcodeproj
+*.xcuserdatad
+*.xccheckout
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*~
+.#*
 ```
