@@ -37,8 +37,8 @@ func start_new_day() -> void:
 func generate_photo_options(event_data: Dictionary, lens: String) -> Array[Dictionary]:
 	var options: Array[Dictionary] = []
 	
-	var base_context := event_data.get("context", "unknown")
-	var emotion := event_data.get("emotion", "neutral")
+	var base_context: String = event_data.get("context", "unknown")
+	var emotion: String = event_data.get("emotion", "neutral")
 	
 	# Генерация 2-3 вариантов в зависимости от линзы
 	match lens:
@@ -85,7 +85,7 @@ func take_photo(photo_data: Dictionary) -> void:
 		photo_taken.emit(photo_data)
 		
 		# Обновление статистики восприятия
-		var ptype := photo_data.get("perception_type", "observation")
+		var ptype: String = photo_data.get("perception_type", "observation")
 		if ptype in perception_stats:
 			perception_stats[ptype] += 1
 
@@ -133,8 +133,8 @@ func analyze_memory() -> Dictionary:
 	
 	# Подсчёт эмоций и контекстов
 	for photo in full_memory:
-		var emotion := photo.get("emotion", "neutral")
-		var context := photo.get("context", "unknown")
+		var emotion: String = photo.get("emotion", "neutral")
+		var context: String = photo.get("context", "unknown")
 		
 		analysis.emotion_frequency[emotion] = analysis.emotion_frequency.get(emotion, 0) + 1
 		analysis.context_frequency[context] = analysis.context_frequency.get(context, 0) + 1
@@ -164,7 +164,7 @@ func reset_memory() -> void:
 func save_memory_to_file(path: String = "user://memory_save.json") -> void:
 	var file := FileAccess.open(path, FileAccess.WRITE)
 	if file:
-		var data := {
+		var data: Variant = {
 			"full_memory": full_memory,
 			"perception_stats": perception_stats
 		}
@@ -184,7 +184,7 @@ func load_memory_from_file(path: String = "user://memory_save.json") -> bool:
 		var json := JSON.new()
 		var error := json.parse(json_string)
 		if error == OK:
-			var data := json.data
+			var data: Variant = json.data
 			full_memory = data.get("full_memory", [])
 			perception_stats = data.get("perception_stats", perception_stats)
 			file.close()

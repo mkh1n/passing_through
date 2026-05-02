@@ -38,7 +38,7 @@ func load_events_database() -> void:
 				var json := JSON.new()
 				var error := json.parse(json_string)
 				if error == OK:
-					var data := json.data
+					var data: Variant = json.data
 					if data is Array:
 						events_db.append_array(data)
 					elif data is Dictionary:
@@ -69,7 +69,7 @@ func load_archetypes_database() -> void:
 				var json := JSON.new()
 				var error := json.parse(json_string)
 				if error == OK:
-					var data := json.data
+					var data: Variant = json.data
 					if data is Dictionary:
 						archetypes_db.merge(data, true)
 		file_name = dir.get_next()
@@ -198,14 +198,14 @@ func start_event(event: Dictionary) -> void:
 
 ## Представление выборов игроку
 func present_choices(event: Dictionary) -> void:
-	var choices := event.get("choices", [])
+	var choices: Array[Dictionary] = event.get("choices", [])
 	
 	# Модификация текстов выборов в зависимости от архетипа
 	var dominant_archetype := GameState.get_dominant_archetype()
-	var archetype_data := archetypes_db.get(dominant_archetype, {})
+	var archetype_data: Dictionary = archetypes_db.get(dominant_archetype, {})
 	
 	for choice in choices:
-		var text_modifier := archetype_data.get("text_modifier", "")
+		var text_modifier: String = archetype_data.get("text_modifier", "")
 		if text_modifier != "" and choice.has("text_variants"):
 			choice["text"] = choice["text_variants"].get(text_modifier, choice.get("text", ""))
 	
@@ -217,11 +217,11 @@ func make_choice(choice_index: int) -> void:
 	if current_event.is_empty():
 		return
 	
-	var choices := current_event.get("choices", [])
+	var choices: Array[Dictionary] = current_event.get("choices", [])
 	if choice_index < 0 or choice_index >= choices.size():
 		return
 	
-	var choice := choices[choice_index]
+	var choice: Dictionary = choices[choice_index]
 	var result := process_choice_outcome(choice)
 	
 	event_completed.emit(result)
@@ -232,14 +232,14 @@ func make_choice(choice_index: int) -> void:
 	
 	# Мини-игра, если требуется
 	if choice.get("minigame", null):
-		var minigame_type := choice.minigame.get("type", "focus")
+		var minigame_type: String = choice.minigame.get("type", "focus")
 		var difficulty := calculate_minigame_difficulty(choice.minigame)
 		minigame_requested.emit(minigame_type, difficulty)
 
 
 ## Расчёт сложности мини-игры
 func calculate_minigame_difficulty(minigame_data: Dictionary) -> float:
-	var base_difficulty := minigame_data.get("base_difficulty", 0.5)
+	var base_difficulty: float = minigame_data.get("base_difficulty", 0.5)
 	
 	# Корректировка по состоянию
 	var state_factor := float(GameState.state + 2) / 4.0 # 0.0 to 1.0
@@ -293,6 +293,6 @@ func handle_minigame_result(success: bool) -> void:
 	# Поиск выбора с мини-игрой
 	for choice in current_event.get("choices", []):
 		if choice.has("minigame"):
-			var outcome := choice.minigame.get("success_outcome" if success else "fail_outcome", {})
+			var outcome: Dictionary = choice.minigame.get("success_outcome" if success else "fail_outcome", {})
 			process_choice_outcome(outcome)
 			break

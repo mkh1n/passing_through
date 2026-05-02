@@ -1,35 +1,29 @@
-```
 # Godot-specific ignores
 *.import
-*.remap
-export_presets.cfg
-.autoloads/
-.editor/
+*.pid
+*.tmp
+*.lock
+.rsync_exclude
+.user
+.autoload_ids
+.editor
+.godot/
 
 # Build artifacts
-*.exe
-*.dll
-*.so
+export_presets.cfg
+
+# Platform-specific files
 *.dylib
+*.so
+*.dll
+*.exe
+*.app
 
-# Dependencies
+# Temp files
 *.tmp
-
-# Logs
+*.temp
 *.log
 
-# Environment
-.env
-.env.local
-*.env.*
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS specific
-.DS_Store
-Thumbs.db
-```
+# User settings (if not intended to be shared)
+.scenes
+.editor_settings-4.tres
