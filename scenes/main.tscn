@@ -8,6 +8,12 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/bg_mid_placeholder.png" id="6_bg_mid"]
 [ext_resource type="Texture2D" path="res://assets/sprites/bg_near_placeholder.png" id="7_bg_near"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_player_collision"]
+size = Vector2(32, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_busstop_collision"]
+size = Vector2(64, 64)
+
 [node name="Main" type="Node2D"]
 
 [node name="Player" type="CharacterBody2D" parent="."]
@@ -19,9 +25,6 @@ texture = ExtResource("4_player_sprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_player_collision")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_player_collision"]
-size = Vector2(32, 64)
 
 [node name="ParallaxBackground" type="Node2D" parent="."]
 script = ExtResource("3_parallax")
@@ -36,9 +39,6 @@ texture = ExtResource("7_bg_near")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/WorldObjects/BusStop"]
 shape = SubResource("RectangleShape2D_busstop_collision")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_busstop_collision"]
-size = Vector2(64, 64)
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
