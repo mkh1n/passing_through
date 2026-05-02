@@ -16,13 +16,37 @@ signal minigame_input_pressed()
 @onready var day_label: Label = $DayLabel
 @onready var archetype_label: Label = $ArchetypeLabel
 
+# Добавляем кнопку старта игры
+@onready var start_button: Button = $StartButton if has_node("StartButton") else null
+
 var current_event: Dictionary = {}
 var is_photo_phase: bool = false
+var game_started: bool = false
 
 
 func _ready() -> void:
 	hide_all_panels()
 	setup_signals()
+	
+	# Создаём кнопку старта если её нет
+	if start_button == null:
+		create_start_button()
+	
+	# Показываем кнопку старта
+	if start_button:
+		start_button.show()
+
+
+## Создание кнопки старта игры
+func create_start_button() -> void:
+	var button: Button = Button.new()
+	button.name = "StartButton"
+	button.text = "НАЧАТЬ ИГРУ"
+	button.custom_minimum_size = Vector2(200, 60)
+	button.position = Vector2(860, 400) # Центр экрана 1920x1080
+	button.pressed.connect(_on_start_button_pressed)
+	add_child(button)
+	start_button = button
 
 
 ## Настройка сигналов от систем
@@ -33,9 +57,13 @@ func setup_signals() -> void:
 	GameState.state_changed.connect(_on_state_changed)
 	GameState.day_started.connect(_on_day_started)
 	MemorySystem.daily_summary_ready.connect(_on_daily_summary_ready)
+	GameManager.day_phase_changed.connect(_on_phase_changed)
 
 
 func _input(event: InputEvent) -> void:
+	if not game_started:
+		return
+	
 	if event.is_action_pressed("photo_trigger"):
 		if is_photo_phase and not photo_panel.visible:
 			show_photo_selection()
@@ -49,6 +77,54 @@ func _input(event: InputEvent) -> void:
 func hide_all_panels() -> void:
 	event_panel.hide()
 	photo_panel.hide()
+
+
+## Обработка смены фазы дня
+func _on_phase_changed(phase: String) -> void:
+	print("UI: Фаза изменена на ", phase)
+	
+	match phase:
+		"morning":
+			_show_morning_ui()
+		"path":
+			_show_path_ui()
+		"scene":
+			# Сцена уже отображается через event_loaded
+			pass
+		"photo":
+			show_photo_selection()
+		"evening":
+			_show_evening_ui()
+		"night":
+			_show_night_ui()
+
+
+func _show_morning_ui() -> void:
+	hide_all_panels()
+	# Показать текст утра
+
+
+func _show_path_ui() -> void:
+	hide_all_panels()
+	# Показать текст пути
+
+
+func _show_evening_ui() -> void:
+	hide_all_panels()
+	# Показать выбор финального фото если есть дневные фото
+	if GameState.daily_photos.size() > 0:
+		show_photo_selection()
+	else:
+		# Автоматический переход к ночи через таймер
+		await get_tree().create_timer(2.0).timeout
+		if GameManager.current_phase == GameManager.GamePhase.EVENING:
+			# Переход произойдёт в GameManager
+			pass
+
+
+func _show_night_ui() -> void:
+	hide_all_panels()
+	# Показать текст рефлексии
 
 
 ## Отображение события
@@ -107,6 +183,8 @@ func _on_event_completed(result: Dictionary) -> void:
 		show_photo_selection()
 	else:
 		hide_all_panels()
+		# Сообщаем GameManager о завершении события
+		GameManager.on_event_completed(result)
 
 
 ## Отображение панели выбора фото
@@ -135,8 +213,8 @@ func _on_photo_button_pressed(index: int) -> void:
 	photo_panel.hide()
 	is_photo_phase = false
 	
-	# Проверка на конец дня
-	check_day_completion()
+	# Сообщаем GameManager о выборе фото
+	GameManager.on_photo_selected(index)
 
 
 ## Проверка завершения дня
@@ -175,3 +253,11 @@ func update_archetype_display() -> void:
 func _on_daily_summary_ready(photos: Array[Dictionary], selected_index: int) -> void:
 	# Можно показать краткий итог дня
 	print("День завершён. Выбрано фото: ", photos[selected_index].get("description", ""))
+
+
+## Кнопка старта игры
+func _on_start_button_pressed() -> void:
+	if start_button:
+		start_button.hide()
+	game_started = true
+	GameManager.start_new_game()

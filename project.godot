@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GameState="*res://scripts/global/game_state.gd"
 EventManager="*res://scripts/systems/event_manager.gd"
 MemorySystem="*res://scripts/systems/memory_system.gd"
+GameManager="*res://scripts/global/game_manager.gd"
 
 [debug_settings]
 
