@@ -202,7 +202,11 @@ func start_event(event: Dictionary) -> void:
 
 ## Представление выборов игроку
 func present_choices(event: Dictionary) -> void:
-	var choices: Array[Dictionary] = event.get("choices", [])
+	var choices_raw: Array = event.get("choices", [])
+	var choices: Array[Dictionary] = []
+	for choice in choices_raw:
+		if choice is Dictionary:
+			choices.append(choice)
 	
 	# Модификация текстов выборов в зависимости от архетипа
 	var dominant_archetype: String = GameState.get_dominant_archetype()
