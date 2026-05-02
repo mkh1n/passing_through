@@ -2,19 +2,36 @@
 # Godot-specific ignores
 *.import
 export_presets.cfg
-.godot/
-
+.autosave/
+.user/
+.editor/
+# Build artifacts
+*.so
+*.dll
+*.dylib
+*.exe
+*.bin
 # Dependencies
-res://addons/
-
+node_modules/
+.venv/
+venv/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
 # Logs
 *.log
-
-# Temp files
-*.tmp
-*.backup
-
-# System files
-.DS_Store
-Thumbs.db
+# Coverage
+coverage/
+htmlcov/
+.coverage
+# Environment
+.env
+.env.local
+*.env.*
 ```
