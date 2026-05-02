@@ -88,14 +88,6 @@ func setup_signals() -> void:
 		player.player_moved.connect(_on_player_moved)
 
 
-func _on_player_moved(direction: float) -> void:
-	var player = get_node_or_null("../Player")
-	if player and player.has_method("check_nearby_objects"):
-		player.check_nearby_objects()
-		player_near_photo_object = player.can_take_photo
-		update_photo_hint()
-
-
 func _input(event: InputEvent) -> void:
 	if not game_started:
 		return
@@ -106,11 +98,6 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("interact") and event_panel.visible:
 		pass
-
-
-func _on_player_photo_requested() -> void:
-	print("Фото запрошено игроком")
-	# Здесь можно добавить логику сохранения фото
 
 
 func hide_all_panels() -> void:
@@ -124,6 +111,18 @@ func update_photo_hint() -> void:
 			photo_hint_label.text = "Сделать фото (Q)"
 		else:
 			photo_hint_label.text = ""
+
+
+func _on_player_moved(direction: float) -> void:
+	var player = get_node_or_null("../Player")
+	if player and player.has_method("check_nearby_objects"):
+		player.check_nearby_objects()
+		player_near_photo_object = player.can_take_photo
+		update_photo_hint()
+
+
+func _on_player_photo_requested() -> void:
+	print("Фото запрошено игроком")
 
 
 func _on_phase_changed(phase: String) -> void:

@@ -17,8 +17,7 @@ func _ready() -> void:
 
 
 func move_with_parallax(speed: float) -> void:
-	# Двигаем объект вместе с фоном (быстрее всех - как первый слой)
-	# speed уже отрицательный когда игрок идет вправо
+	# Двигаем объект вместе с фоном
 	global_position.x += speed * parallax_speed * 100
 
 

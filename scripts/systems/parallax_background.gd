@@ -42,22 +42,22 @@ func _collect_parallax_layers() -> void:
 	print("Найдено слоев переднего плана: ", fg_layers.size())
 
 
-func _on_player_moved(speed: float) -> void:
+func _on_player_moved(direction: float) -> void:
 	# Двигаем все слои в направлении opposite to player movement
-	# Когда игрок идет вправо (positive speed), фон движется влево (negative)
+	# direction уже отрицательный когда игрок идет вправо
 	
-	var direction_multiplier = -speed * 0.1
+	var speed_multiplier = base_speed * direction * 0.1
 	
 	# Двигаем задний фон (медленнее)
 	for layer in bg_layers:
-		layer.motion_offset.x += direction_multiplier * layer.motion_scale.x
+		layer.motion_offset.x += speed_multiplier * layer.motion_scale.x
 	
 	# Двигаем передний план (быстрее)
 	for layer in fg_layers:
-		layer.motion_offset.x += direction_multiplier * layer.motion_scale.x
+		layer.motion_offset.x += speed_multiplier * layer.motion_scale.x
 	
-	# Двигаем объекты мира с тем же параллаксом что и ближайший слой фона
+	# Двигаем объекты мира
 	if world_objects_container:
 		for obj in world_objects_container.get_children():
 			if obj.has_method("move_with_parallax"):
-				obj.move_with_parallax(direction_multiplier)
+				obj.move_with_parallax(speed_multiplier)

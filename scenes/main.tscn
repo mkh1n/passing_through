@@ -3,11 +3,10 @@
 [ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/ui_controller.gd" id="2_ui"]
 [ext_resource type="Script" path="res://scripts/systems/parallax_background.gd" id="3_parallax"]
-[ext_resource type="Script" path="res://scripts/systems/bus_stop.gd" id="4_bus_stop"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player_placeholder.png" id="5_player_sprite"]
-[ext_resource type="Texture2D" path="res://assets/sprites/bg_far_placeholder.png" id="6_bg_far"]
-[ext_resource type="Texture2D" path="res://assets/sprites/bg_mid_placeholder.png" id="7_bg_mid"]
-[ext_resource type="Texture2D" path="res://assets/sprites/bg_near_placeholder.png" id="8_bg_near"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player_placeholder.png" id="4_player_sprite"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bg_far_placeholder.png" id="5_bg_far"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bg_mid_placeholder.png" id="6_bg_mid"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bg_near_placeholder.png" id="7_bg_near"]
 
 [node name="Main" type="Node2D"]
 
@@ -16,7 +15,7 @@ position = Vector2(960, 700)
 script = ExtResource("1_player")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("5_player_sprite")
+texture = ExtResource("4_player_sprite")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = RectangleShape2D.new()
@@ -28,75 +27,71 @@ script = ExtResource("3_parallax")
 
 [node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects"]
 position = Vector2(1500, 700)
-script = ExtResource("4_bus_stop")
-collision_layer = 2
-collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop"]
-texture = ExtResource("8_bg_near")
+texture = ExtResource("7_bg_near")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/WorldObjects/BusStop"]
-shape = RectangleShape2D.new()
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
 
 [node name="Sprite1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.2, 0)
 
 [node name="Sprite2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0)
 
 [node name="Sprite3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.4, 0)
 
 [node name="Sprite4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0)
 
 [node name="Sprite5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.6, 0)
 
 [node name="Sprite6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.7, 0)
 
 [node name="Sprite7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.8, 0)
 
 [node name="Sprite8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8"]
-texture = ExtResource("6_bg_far")
+texture = ExtResource("5_bg_far")
 
 [node name="ParallaxLayerFG1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.2, 0)
 
 [node name="SpriteFG1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1"]
-texture = ExtResource("7_bg_mid")
+texture = ExtResource("6_bg_mid")
 
 [node name="ParallaxLayerFG2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.5, 0)
 
 [node name="SpriteFG2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2"]
-texture = ExtResource("8_bg_near")
+texture = ExtResource("7_bg_near")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("2_ui")

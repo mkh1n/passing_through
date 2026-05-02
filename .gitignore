@@ -3,58 +3,36 @@
 *.import
 *.pidb
 export_presets.cfg
-.godot/
-
+.autosave/
+.user/
+.editor/
+# Build artifacts
+*.so
+*.dll
+*.dylib
+*.exe
+*.bin
 # Dependencies
 node_modules/
-venv/
 .venv/
+venv/
 __pycache__/
-*.egg-info/
-dist/
-build/
-target/
-.gradle/
-
-# Editor/IDE files
+.mypy_cache/
+.pytest_cache/
+# Editor/IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *.tmp
-
 # Logs
 *.log
-
+# Coverage
+coverage/
+htmlcov/
+.coverage
 # Environment
 .env
 .env.local
 *.env.*
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Coverage reports
-coverage/
-htmlcov/
-.coverage
-
-# Python cache
-*.pyc
-*.pyo
-*.pyd
-.Python
-*.so
-
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
 ```
