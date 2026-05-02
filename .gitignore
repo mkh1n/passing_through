@@ -1,58 +1,41 @@
 ```
 # Godot-specific ignores
 *.import
-*.uid
+*.remap
 export_presets.cfg
-.autoloads/
+.autoload_singleton.gd
 .editor/
+.godot/
 
 # Build artifacts
+*.exe
+*.dll
 *.so
 *.dylib
-*.dll
-*.exe
-*.bin
+*.app
+build/
+dist/
 
 # Dependencies
 node_modules/
 vendor/
 
-# Logs and temp files
-*.log
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 *.tmp
-*.temp
+
+# Logs
+*.log
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
+# OS specific
 .DS_Store
 Thumbs.db
-
-# Coverage
-.coverage
-coverage/
-htmlcov/
-
-# Python (if applicable)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-*.so
-.Python
 ```
