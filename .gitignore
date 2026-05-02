@@ -1,23 +1,20 @@
 ```
 # Godot-specific ignores
 *.import
-*.pid
-*.tmp
-*.lock
-
-# Build artifacts
 export_presets.cfg
-
-# Editor
-.vscode/
-.idea/
+.godot/
 
 # Dependencies
-.addons/
+res://addons/
 
 # Logs
 *.log
 
-# Temporary files
+# Temp files
 *.tmp
+*.backup
+
+# System files
+.DS_Store
+Thumbs.db
 ```

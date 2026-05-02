@@ -226,19 +226,20 @@ func make_choice(choice_index: int) -> void:
 		return
 	
 	var choice: Dictionary = choices[choice_index]
-	var result: Dictionary = process_choice_outcome(choice)
 	
-	event_completed.emit(result)
-	
-	# Добавление в эхо, если событие пропущено
-	if choice.get("skip_event", false):
-		GameState.add_echo(current_event.get("id", ""))
-	
-	# Мини-игра, если требуется
+	# Мини-игра, если требуется (сначала мини-игра, потом результат)
 	if choice.get("minigame", null):
 		var minigame_type: String = choice.minigame.get("type", "focus")
 		var difficulty: float = calculate_minigame_difficulty(choice.minigame)
 		minigame_requested.emit(minigame_type, difficulty)
+		# Результат будет обработан после завершения мини-игры
+	else:
+		var result: Dictionary = process_choice_outcome(choice)
+		event_completed.emit(result)
+		
+		# Добавление в эхо, если событие пропущено
+		if choice.get("skip_event", false):
+			GameState.add_echo(current_event.get("id", ""))
 
 
 ## Расчёт сложности мини-игры
