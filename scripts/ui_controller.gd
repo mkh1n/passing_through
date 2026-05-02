@@ -77,15 +77,21 @@ func format_event_text(event_data: Dictionary) -> String:
 
 ## Отображение выборов
 func _on_choices_presented(choices: Array[Dictionary]) -> void:
-	choices_container.clear_buttons()
+	_clear_children(choices_container)
 	
 	for i in range(choices.size()):
-		var choice := choices[i]
+		var choice: Dictionary = choices[i]
 		var button := Button.new()
 		button.text = choice.get("text", "Выбор " + str(i + 1))
 		button.custom_minimum_size = Vector2(300, 50)
 		button.pressed.connect(_on_choice_button_pressed.bind(i))
 		choices_container.add_child(button)
+
+
+## Утилиты для очистки контейнеров
+func _clear_children(container: Node) -> void:
+	for child in container.get_children():
+		child.queue_free()
 
 
 func _on_choice_button_pressed(index: int) -> void:
@@ -107,7 +113,7 @@ func _on_event_completed(result: Dictionary) -> void:
 func show_photo_selection() -> void:
 	hide_all_panels()
 	photo_panel.show()
-	photo_container.clear_children()
+	_clear_children(photo_container)
 	
 	var photos := GameState.daily_photos
 	if photos.is_empty():
@@ -115,7 +121,7 @@ func show_photo_selection() -> void:
 		photos = MemorySystem.generate_photo_options(current_event, GameState.current_lens)
 	
 	for i in range(photos.size()):
-		var photo := photos[i]
+		var photo: Dictionary = photos[i]
 		var button := Button.new()
 		button.text = photo.get("description", "Фото " + str(i + 1))
 		button.custom_minimum_size = Vector2(250, 150)
@@ -169,19 +175,3 @@ func update_archetype_display() -> void:
 func _on_daily_summary_ready(photos: Array[Dictionary], selected_index: int) -> void:
 	# Можно показать краткий итог дня
 	print("День завершён. Выбрано фото: ", photos[selected_index].get("description", ""))
-
-
-## Утилиты для очистки контейнеров
-func clear_children() -> void:
-	for child in get_children():
-		child.queue_free()
-
-
-func VBoxContainer.clear_buttons() -> void:
-	for child in get_children():
-		child.queue_free()
-
-
-func HBoxContainer.clear_children() -> void:
-	for child in get_children():
-		child.queue_free()

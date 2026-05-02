@@ -49,7 +49,7 @@ func interact() -> void:
 	
 	var result := space_state.intersect_ray(query)
 	if result:
-		var collider := result.collider
+		var collider: Node = result.collider
 		if collider.has_method("interact"):
 			collider.interact()
 
