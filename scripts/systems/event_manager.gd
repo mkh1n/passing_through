@@ -225,7 +225,12 @@ func make_choice(choice_index: int) -> void:
 	if current_event.is_empty():
 		return
 	
-	var choices: Array[Dictionary] = current_event.get("choices", [])
+	var choices: Array[Dictionary] = []
+
+	for item in current_event.get("choices", []):
+		if item is Dictionary:
+			choices.append(item)
+			
 	if choice_index < 0 or choice_index >= choices.size():
 		return
 	
