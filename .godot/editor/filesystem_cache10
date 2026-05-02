@@ -1,5 +1,5 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1777761833
+::res://::1777762144
 icon.svg::CompressedTexture2D::5943052766377814293::1777742505::1777761782::1::::<><><>0<>0<>69b7b3c40b949dd27c437c4d18918584<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile::-1::1777748540::0::1::::<><><>0<>0<><>::
 SETUP_GUIDE.md::TextFile::-1::1777761407::0::1::::<><><>0<>0<><>::
@@ -25,8 +25,8 @@ README.txt::TextFile::-1::1777742505::0::1::::<><><>0<>0<><>::
 archetypes.json::JSON::-1::1777742505::0::1::::<><><>0<>0<><>::
 ::res://data/events/::1777742505
 starter_events.json::JSON::-1::1777742505::0::1::::<><><>0<>0<><>::
-::res://scenes/::1777761161
-main.tscn::PackedScene::-1::1777761403::0::1::::<><><>0<>0<><>::res://scripts/player_controller.gd<>res://scripts/ui_controller.gd<>res://scripts/systems/parallax_background.gd<>res://assets/sprites/player_placeholder.png<>res://assets/sprites/bg_far_placeholder.png<>res://assets/sprites/bg_mid_placeholder.png<>res://assets/sprites/bg_near_placeholder.png
+::res://scenes/::1777762126
+main.tscn::PackedScene::-1::1777762126::0::1::::<><><>0<>0<><>::res://scripts/player_controller.gd<>res://scripts/ui_controller.gd<>res://scripts/systems/parallax_background.gd<>res://assets/sprites/player_placeholder.png<>res://assets/sprites/bg_far_placeholder.png<>res://assets/sprites/bg_mid_placeholder.png<>res://assets/sprites/bg_near_placeholder.png
 ::res://scripts/::1777761161
 player_controller.gd::GDScript::2193777750239459371::1777761161::0::1::::<>CharacterBody2D<><>0<>0<><>::
 ui_controller.gd::GDScript::6599630088121603687::1777750206::0::1::::<>CanvasLayer<><>0<>0<><>::
