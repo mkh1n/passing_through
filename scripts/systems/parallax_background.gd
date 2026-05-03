@@ -1,14 +1,12 @@
 extends ParallaxBackground
 ## ParallaxBackground - Управление параллакс фоном
-## 8 слоев заднего фона, 2 слоя переднего плана
+## 8 слоев заднего фона (без переднего плана)
 ## Фон двигается в противоположную сторону от движения игрока
 
 @export var player: CharacterBody2D
 
 # Слои заднего фона (8 слоев)
 @onready var bg_layers: Array[ParallaxLayer] = []
-# Слои переднего плана (2 слоя)
-@onready var fg_layers: Array[ParallaxLayer] = []
 
 # Объекты мира (остановки, предметы)
 @onready var world_objects_container: Node2D = $WorldObjects if has_node("WorldObjects") else null
@@ -32,25 +30,24 @@ func _ready() -> void:
 	scroll_offset = Vector2.ZERO
 	
 	# Проверяем что слои имеют правильный размер и позицию
-	for layer in bg_layers + fg_layers:
+	for layer in bg_layers:
 		for child in layer.get_children():
 			if child is Sprite2D:
 				# Убеждаемся что спрайты позиционированы правильно
 				if child.position.x < 0:
 					child.position.x = 0
 	
-	print("ParallaxBackground готов. Слоев BG: ", bg_layers.size(), ", FG: ", fg_layers.size())
+	print("ParallaxBackground готов. Слоев BG: ", bg_layers.size())
 
 
 func _collect_parallax_layers() -> void:
-	# Собираем слои заднего фона (motion_scale < 1.0) и переднего плана (motion_scale >= 1.0)
+	# Собираем все слои как задний фон (motion_scale < 1.0)
 	for child in get_children():
 		if child is ParallaxLayer:
-			var motion_x = child.motion_scale.x
-			if motion_x < 1.0:
-				bg_layers.append(child)
-			else:
-				fg_layers.append(child)
+			bg_layers.append(child)
+	
+	# Сортируем слои по z-index (чем меньше номер слоя, тем выше он визуально)
+	bg_layers.sort_custom(func(a, b): return a.z_index > b.z_index)
 
 
 func _process(_delta: float) -> void:
@@ -67,10 +64,6 @@ func _process(_delta: float) -> void:
 		
 		# Двигаем задний фон с учетом их motion_scale
 		for layer in bg_layers:
-			layer.motion_offset.x += movement_amount * layer.motion_scale.x
-		
-		# Двигаем передний план с учетом их motion_scale  
-		for layer in fg_layers:
 			layer.motion_offset.x += movement_amount * layer.motion_scale.x
 		
 		# Двигаем объекты мира вместе с фоном

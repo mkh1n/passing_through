@@ -10,8 +10,7 @@ enum GamePhase {
 	MORNING,	# Утро - выбор направления
 	PATH,		# Путь - движение к событию
 	SCENE,		# Сцена - событие
-	PHOTO,		# Фото - выбор кадра
-	EVENING,	# Вечер - сохранение памяти
+	EVENING,	# Вечер - завершение дня
 	NIGHT		# Ночь - рефлексия/эхо
 }
 
@@ -28,7 +27,6 @@ func _ready() -> void:
 ## Запуск новой игры
 func start_new_game() -> void:
 	GameState.start_new_game()
-	MemorySystem.reset_memory()
 	is_game_running = true
 	events_today = 0
 	current_phase = GamePhase.MORNING
@@ -45,7 +43,6 @@ func change_phase(new_phase: GamePhase) -> void:
 		GamePhase.MORNING: "morning",
 		GamePhase.PATH: "path",
 		GamePhase.SCENE: "scene",
-		GamePhase.PHOTO: "photo",
 		GamePhase.EVENING: "evening",
 		GamePhase.NIGHT: "night"
 	}
@@ -59,8 +56,6 @@ func change_phase(new_phase: GamePhase) -> void:
 			_on_path_phase()
 		GamePhase.SCENE:
 			_on_scene_phase()
-		GamePhase.PHOTO:
-			_on_photo_phase()
 		GamePhase.EVENING:
 			_on_evening_phase()
 		GamePhase.NIGHT:
@@ -70,19 +65,26 @@ func change_phase(new_phase: GamePhase) -> void:
 ## Утренняя фаза - начало дня
 func _on_morning_phase() -> void:
 	print("🌅 УТРО - День ", GameState.current_day)
-	# Здесь можно добавить выбор направления/линзы
-	# Пока просто переходим к пути
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	change_phase(GamePhase.PATH)
 
 
 ## Фаза пути - движение к событию
 func _on_path_phase() -> void:
 	print("🚶 ПУТЬ - Движение...")
-	# Параллакс движение, музыка
-	# Поиск и запуск события
-	await get_tree().create_timer(1.5).timeout
-	start_event_sequence()
+	# Игрок двигается, проверяем триггеры событий через игрока
+	var player = get_node_or_null("../Player")
+	if player and player.has_method("should_trigger_event"):
+		# Ждем пока игрок пройдет достаточное расстояние
+		while not player.should_trigger_event() and events_today < max_events_per_day:
+			await get_tree().create_timer(0.5).timeout
+			if not is_game_running:
+				return
+		
+		if events_today < max_events_per_day:
+			start_event_sequence()
+		else:
+			change_phase(GamePhase.EVENING)
 
 
 ## Запуск последовательности событий
@@ -105,7 +107,7 @@ func start_event_sequence() -> void:
 		change_phase(GamePhase.EVENING)
 		return
 	
-	# Выбор случайного события (можно улучшить логику выбора)
+	# Выбор случайного события
 	var event_index: int = randi() % available.size()
 	var selected_event: Dictionary = available[event_index]
 	
@@ -121,33 +123,16 @@ func _on_scene_phase() -> void:
 	# Ждём завершения события через сигнал
 
 
-## Фаза фото - выбор кадра
-func _on_photo_phase() -> void:
-	print("📸 ФОТО - Выбор кадра восприятия")
-	# UI покажет варианты фото
-	# Игрок выбирает один кадр
-
-
 ## Вечерняя фаза - завершение дня
 func _on_evening_phase() -> void:
 	print("🌙 ВЕЧЕР - Завершение дня")
-	# Игрок сохраняет 1 фото из дневных
-	# Остальные исчезают
-	
-	# Если фото ещё не выбрано, даём время на выбор
-	if GameState.daily_photos.size() > 0:
-		print("Ожидание выбора финального фото...")
-	else:
-		# Автоматический переход если нет фото
-		await get_tree().create_timer(2.0).timeout
-		change_phase(GamePhase.NIGHT)
+	await get_tree().create_timer(2.0).timeout
+	change_phase(GamePhase.NIGHT)
 
 
 ## Ночная фаза - рефлексия
 func _on_night_phase() -> void:
 	print("🌫 НОЧЬ - Рефлексия")
-	# Короткий текст
-	# Возможное эхо прошлых событий
 	
 	await get_tree().create_timer(3.0).timeout
 	
@@ -166,7 +151,6 @@ func end_game() -> void:
 	game_ended.emit()
 	change_phase(GamePhase.NIGHT)
 	
-	# Показ финала
 	show_final_interpretation()
 
 
@@ -174,32 +158,20 @@ func end_game() -> void:
 func show_final_interpretation() -> void:
 	print("📊 ФИНАЛ - Сборка опыта")
 	
-	var analysis: Dictionary = MemorySystem.analyze_memory()
 	var dominant_archetype: String = GameState.get_dominant_archetype()
 	var archetype_data: Dictionary = EventManager.archetypes_db.get(dominant_archetype, {})
 	
 	print("Доминирующий архетип: ", dominant_archetype)
 	print("Интерпретация: ", archetype_data.get("final_interpretation", "Нет данных"))
-	print("Статистика восприятия: ", analysis.perception_distribution)
-	print("Всего дней: ", analysis.total_days)
+	print("Всего дней: ", GameState.current_day)
 
 
 ## Обработка завершения события
 func on_event_completed(result: Dictionary) -> void:
 	events_today += 1
 	
-	# Переход к фазе фото если есть опции
-	if result.photo_options and result.photo_options.size() > 0:
-		change_phase(GamePhase.PHOTO)
+	# Проверяем завершение дня
+	if events_today >= max_events_per_day:
+		change_phase(GamePhase.EVENING)
 	else:
-		# Если нет фото, сразу проверяем завершение дня
-		if events_today >= max_events_per_day:
-			change_phase(GamePhase.EVENING)
-		else:
-			change_phase(GamePhase.PATH)
-
-
-## Обработка выбора фото
-func on_photo_selected(index: int) -> void:
-	# Фото выбрано и сохранено в MemorySystem
-	change_phase(GamePhase.EVENING)
+		change_phase(GamePhase.PATH)

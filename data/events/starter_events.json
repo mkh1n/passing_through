@@ -1,252 +1,177 @@
 [
-	{
-		"id": "stopa_001",
-		"title": "Остановка",
-		"context": "остановка",
-		"emotion": "ожидание",
-		"text": "Ты стоишь на остановке. Рядом человек в серой куртке смотрит на телефон. Автобуса нет уже 20 минут.",
-		"day_min": 1,
-		"day_max": 5,
-		"repeatable": false,
-		"choices": [
-			{
-				"text": "Посмотреть на человека",
-				"text_variants": {
-					"bright": "Человек выглядит дружелюбно, может стоит заговорить?",
-					"detailed": "Его пальцы быстро бегают по экрану. На запястье дешёвые часы.",
-					"ironic": "Ещё один зомби в телефоне. Скоро они забудут как выглядит небо.",
-					"distant": "Лучше не смотреть. Вдруг заметит и придётся говорить.",
-					"caring": "Он выглядит уставшим. Может у него тяжёлый день?",
-					"empty": "Какая разница. Все одинаковые.",
-					"dark": "Наверное думает о чём-то плохом. Как и все."
-				},
-				"state_change": 0,
-				"track_changes": {"observe": 1},
-				"archetype_shifts": {"obsessive": 1},
-				"photo_options": [
-					{"description": "Руки с телефоном", "context": "остановка", "emotion": "нейтрально", "perception_type": "observation"},
-					{"description": "Профиль человека", "context": "остановка", "emotion": "задумчиво", "perception_type": "connection"}
-				]
-			},
-			{
-				"text": "Заговорить",
-				"text_variants": {
-					"bright": "Привет! Долго ждать ещё?",
-					"detailed": "Извините, вы не знаете когда следующий?",
-					"ironic": "Эй, ты тоже застрял здесь навсегда?",
-					"distant": "...",
-					"caring": "Всё в порядке? Выглядите уставшим.",
-					"empty": "Зачем?",
-					"dark": "Хочешь вместе подождать конец света?"
-				},
-				"state_change": 1,
-				"track_changes": {"connect": 1, "action": 1},
-				"archetype_shifts": {"euphoric": 1, "healer": 1},
-				"minigame": {
-					"type": "rhythm",
-					"base_difficulty": 0.5,
-					"success_outcome": {
-						"state_change": 1,
-						"track_changes": {"connect": 2},
-						"archetype_shifts": {"euphoric": 2}
-					},
-					"fail_outcome": {
-						"state_change": -1,
-						"track_changes": {"observe": 1},
-						"archetype_shifts": {"fleeing": 1}
-					}
-				},
-				"photo_options": [
-					{"description": "Мы разговариваем", "context": "остановка", "emotion": "тепло", "perception_type": "connection"},
-					{"description": "Момент тишины между словами", "context": "остановка", "emotion": "странно", "perception_type": "observation"}
-				]
-			},
-			{
-				"text": "Игнорировать",
-				"text_variants": {
-					"bright": "Наверное он тоже ждёт. Всё будет хорошо.",
-					"detailed": "Смотрю на асфальт. Трещина идёт к бордюру.",
-					"ironic": "Молчание — золото. Особенно на остановке.",
-					"distant": "Главное чтобы не начал говорить.",
-					"caring": "Надеюсь у него всё наладится.",
-					"empty": "",
-					"dark": "Все исчезнем. Зачем напрягаться?"
-				},
-				"state_change": 0,
-				"track_changes": {"observe": 1},
-				"archetype_shifts": {"nihilist": 1, "fleeing": 1},
-				"skip_event": true,
-				"echo_trigger": "stopa_001_echo",
-				"photo_options": [
-					{"description": "Пустая дорога", "context": "остановка", "emotion": "пусто", "perception_type": "observation"},
-					{"description": "Мои ботинки", "context": "остановка", "emotion": "терпение", "perception_type": "participation"}
-				]
-			}
-		]
-	},
-	{
-		"id": "stopa_001_echo",
-		"title": "Остановка (Эхо)",
-		"context": "остановка",
-		"emotion": "последствие",
-		"text": "Ты снова на этой остановке. Человека в серой куртке нет. Только сигаретный окурок на том месте где он стоял.",
-		"day_min": 6,
-		"day_max": 15,
-		"repeatable": false,
-		"is_echo": true,
-		"choices": [
-			{
-				"text": "Подобрать окурок",
-				"state_change": 0,
-				"track_changes": {"action": 1},
-				"archetype_shifts": {"obsessive": 2},
-				"photo_options": [
-					{"description": "Окурок в руке", "context": "остановка", "emotion": "странно", "perception_type": "participation"}
-				]
-			},
-			{
-				"text": "Наступить и уйти",
-				"state_change": -1,
-				"track_changes": {"observe": 1},
-				"archetype_shifts": {"nihilist": 1},
-				"photo_options": [
-					{"description": "Раздавленный фильтр", "context": "остановка", "emotion": "вина", "perception_type": "observation"}
-				]
-			}
-		]
-	},
-	{
-		"id": "dvor_001",
-		"title": "Двор",
-		"context": "двор",
-		"emotion": "ностальгия",
-		"text": "Знакомый двор. Качели скрипят на ветру. Кто-то нарисовал баллончиком сердце на трансформаторной будке.",
-		"day_min": 1,
-		"day_max": 10,
-		"repeatable": false,
-		"choices": [
-			{
-				"text": "Сесть на качели",
-				"state_change": 1,
-				"track_changes": {"action": 1},
-				"archetype_shifts": {"euphoric": 1},
-				"minigame": {
-					"type": "rhythm",
-					"base_difficulty": 0.4,
-					"success_outcome": {
-						"state_change": 2,
-						"archetype_shifts": {"euphoric": 2}
-					},
-					"fail_outcome": {
-						"state_change": 0,
-						"archetype_shifts": {"fleeing": 1}
-					}
-				},
-				"photo_options": [
-					{"description": "Ноги отталкиваются от земли", "context": "двор", "emotion": "свобода", "perception_type": "participation"},
-					{"description": "Качели в движении", "context": "двор", "emotion": "детство", "perception_type": "observation"}
-				]
-			},
-			{
-				"text": "Рассмотреть рисунок",
-				"state_change": 0,
-				"track_changes": {"observe": 1},
-				"archetype_shifts": {"obsessive": 1},
-				"photo_options": [
-					{"description": "Сердце с инициалами", "context": "двор", "emotion": "романтика", "perception_type": "observation"}
-				]
-			},
-			{
-				"text": "Пройти мимо",
-				"state_change": 0,
-				"track_changes": {},
-				"archetype_shifts": {"fleeing": 1},
-				"skip_event": true,
-				"photo_options": [
-					{"description": "Спина уходящего", "context": "двор", "emotion": "одиночество", "perception_type": "observation"}
-				]
-			}
-		]
-	},
-	{
-		"id": "krisha_001",
-		"title": "Крыша",
-		"context": "крыша",
-		"emotion": "покой",
-		"text": "Ты на крыше. Город внизу как макет. Ветер треплет волосы. Здесь тихо, только далёкий шум машин.",
-		"day_min": 3,
-		"day_max": 15,
-		"repeatable": false,
-		"choices": [
-			{
-				"text": "Сесть на край",
-				"state_change": 0,
-				"track_changes": {"action": 1},
-				"archetype_shifts": {"nihilist": 1, "euphoric": 1},
-				"photo_options": [
-					{"description": "Город с высоты", "context": "крыша", "emotion": "величие", "perception_type": "observation"},
-					{"description": "Ноги свисают над пропастью", "context": "крыша", "emotion": "опасность", "perception_type": "participation"}
-				]
-			},
-			{
-				"text": "Лечь на спину",
-				"state_change": 1,
-				"track_changes": {"observe": 1},
-				"archetype_shifts": {"euphoric": 1},
-				"photo_options": [
-					{"description": "Небо над головой", "context": "крыша", "emotion": "бесконечность", "perception_type": "observation"}
-				]
-			},
-			{
-				"text": "Уйти",
-				"state_change": 0,
-				"track_changes": {},
-				"archetype_shifts": {"fleeing": 1},
-				"skip_event": true,
-				"photo_options": [
-					{"description": "Открытая дверь", "context": "крыша", "emotion": "нерешительность", "perception_type": "observation"}
-				]
-			}
-		]
-	},
-	{
-		"id": "magazin_001",
-		"title": "Магазин",
-		"context": "магазин",
-		"emotion": "рутина",
-		"text": "Продуктовый у дома. Кассирша зевает. Холодильник гудит. Ты берёшь то же что всегда.",
-		"day_min": 1,
-		"day_max": 15,
-		"repeatable": true,
-		"choices": [
-			{
-				"text": "Заговорить с кассиршей",
-				"state_change": 1,
-				"track_changes": {"connect": 1, "action": 1},
-				"archetype_shifts": {"healer": 1, "euphoric": 1},
-				"photo_options": [
-					{"description": "Усталая улыбка", "context": "магазин", "emotion": "понимание", "perception_type": "connection"}
-				]
-			},
-			{
-				"text": "Молча оплатить",
-				"state_change": 0,
-				"track_changes": {"observe": 1},
-				"archetype_shifts": {"nihilist": 1},
-				"photo_options": [
-					{"description": "Чек в руке", "context": "магазин", "emotion": "обыденность", "perception_type": "participation"},
-					{"description": "Руки кассирши", "context": "магазин", "emotion": "механичность", "perception_type": "observation"}
-				]
-			},
-			{
-				"text": "Купить что-то новое",
-				"state_change": 1,
-				"track_changes": {"action": 1},
-				"archetype_shifts": {"euphoric": 2},
-				"photo_options": [
-					{"description": "Незнакомая упаковка", "context": "магазин", "emotion": "любопытство", "perception_type": "participation"}
-				]
-			}
-		]
-	}
+{
+"id": "stopa_001",
+"title": "Остановка",
+"context": "остановка",
+"emotion": "ожидание",
+"text": "Ты стоишь на остановке. Рядом человек в серой куртке смотрит на телефон. Автобуса нет уже 20 минут.",
+"day_min": 1,
+"day_max": 5,
+"repeatable": false,
+"choices": [
+{
+"text": "Посмотреть на человека",
+"text_variants": {
+"bright": "Человек выглядит дружелюбно, может стоит заговорить?",
+"detailed": "Его пальцы быстро бегают по экрану. На запястье дешёвые часы.",
+"ironic": "Ещё один зомби в телефоне. Скоро они забудут как выглядит небо.",
+"distant": "Лучше не смотреть. Вдруг заметит и придётся говорить.",
+"caring": "Он выглядит уставшим. Может у него тяжёлый день?",
+"empty": "Какая разница. Все одинаковые.",
+"dark": "Наверное думает о чём-то плохом. Как и все."
+},
+"state_change": 0,
+"track_changes": {"observe": 1},
+"archetype_shifts": {"obsessive": 1}
+},
+{
+"text": "Заговорить",
+"text_variants": {
+"bright": "Привет! Долго ждать ещё?",
+"detailed": "Извините, вы не знаете когда следующий?",
+"ironic": "Эй, ты тоже застрял здесь навсегда?",
+"distant": "...",
+"caring": "Всё в порядке? Выглядите уставшим.",
+"empty": "Зачем?",
+"dark": "Хочешь вместе подождать конец света?"
+},
+"state_change": 1,
+"track_changes": {"connect": 1, "action": 1},
+"archetype_shifts": {"euphoric": 1, "healer": 1}
+},
+{
+"text": "Игнорировать",
+"text_variants": {
+"bright": "Наверное он тоже ждёт. Всё будет хорошо.",
+"detailed": "Смотрю на асфальт. Трещина идёт к бордюру.",
+"ironic": "Молчание — золото. Особенно на остановке.",
+"distant": "Главное чтобы не начал говорить.",
+"caring": "Надеюсь у него всё наладится.",
+"empty": "",
+"dark": "Все исчезнем. Зачем напрягаться?"
+},
+"state_change": 0,
+"track_changes": {"observe": 1},
+"archetype_shifts": {"nihilist": 1, "fleeing": 1},
+"skip_event": true,
+"echo_trigger": "stopa_001_echo"
+}
+]
+},
+{
+"id": "stopa_001_echo",
+"title": "Остановка (Эхо)",
+"context": "остановка",
+"emotion": "последствие",
+"text": "Ты снова на этой остановке. Человека в серой куртке нет. Только сигаретный окурок на том месте где он стоял.",
+"day_min": 6,
+"day_max": 15,
+"repeatable": false,
+"choices": [
+{
+"text": "Подобрать окурок",
+"state_change": -1,
+"track_changes": {"observe": 1},
+"archetype_shifts": {"obsessive": 1}
+},
+{
+"text": "Пройти мимо",
+"state_change": 0,
+"track_changes": {},
+"archetype_shifts": {"fleeing": 1}
+}
+]
+},
+{
+"id": "dvor_001",
+"title": "Двор",
+"context": "двор",
+"emotion": "ностальгия",
+"text": "Старый двор. Качели скрипят. На асфальте мелом нарисовано сердце с инициалами. Кто-то всё ещё верит в вечное.",
+"day_min": 1,
+"day_max": 10,
+"repeatable": false,
+"choices": [
+{
+"text": "Сесть на качели",
+"state_change": 1,
+"track_changes": {"action": 1},
+"archetype_shifts": {"euphoric": 1}
+},
+{
+"text": "Рассмотреть рисунок",
+"state_change": 0,
+"track_changes": {"observe": 1},
+"archetype_shifts": {"obsessive": 1}
+},
+{
+"text": "Пройти мимо",
+"state_change": 0,
+"track_changes": {},
+"archetype_shifts": {"fleeing": 1},
+"skip_event": true
+}
+]
+},
+{
+"id": "krisha_001",
+"title": "Крыша",
+"context": "крыша",
+"emotion": "покой",
+"text": "Ты на крыше. Город внизу как макет. Ветер треплет волосы. Здесь тихо, только далёкий шум машин.",
+"day_min": 3,
+"day_max": 15,
+"repeatable": false,
+"choices": [
+{
+"text": "Сесть на край",
+"state_change": 0,
+"track_changes": {"action": 1},
+"archetype_shifts": {"nihilist": 1, "euphoric": 1}
+},
+{
+"text": "Лечь на спину",
+"state_change": 1,
+"track_changes": {"observe": 1},
+"archetype_shifts": {"euphoric": 1}
+},
+{
+"text": "Уйти",
+"state_change": 0,
+"track_changes": {},
+"archetype_shifts": {"fleeing": 1},
+"skip_event": true
+}
+]
+},
+{
+"id": "magazin_001",
+"title": "Магазин",
+"context": "магазин",
+"emotion": "рутина",
+"text": "Продуктовый у дома. Кассирша зевает. Холодильник гудит. Ты берёшь то же что всегда.",
+"day_min": 1,
+"day_max": 15,
+"repeatable": true,
+"choices": [
+{
+"text": "Заговорить с кассиршей",
+"state_change": 1,
+"track_changes": {"connect": 1, "action": 1},
+"archetype_shifts": {"healer": 1, "euphoric": 1}
+},
+{
+"text": "Молча оплатить",
+"state_change": 0,
+"track_changes": {"observe": 1},
+"archetype_shifts": {"nihilist": 1}
+},
+{
+"text": "Купить что-то новое",
+"state_change": 1,
+"track_changes": {"action": 1},
+"archetype_shifts": {"euphoric": 2}
+}
+]
+}
 ]
