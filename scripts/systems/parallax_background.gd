@@ -26,6 +26,8 @@ func _ready() -> void:
 	
 	if player and player.has_signal("player_moved"):
 		player.player_moved.connect(_on_player_moved)
+	
+	print("ParallaxBackground готов. Слоев BG: ", bg_layers.size(), ", FG: ", fg_layers.size())
 
 
 func _collect_parallax_layers() -> void:
@@ -38,23 +40,28 @@ func _collect_parallax_layers() -> void:
 			else:
 				fg_layers.append(child)
 	
-	print("Найдено слоев заднего фона: ", bg_layers.size())
-	print("Найдено слоев переднего плана: ", fg_layers.size())
+	print("ParallaxBackground: Найдено слоев заднего фона: ", bg_layers.size())
+	print("ParallaxBackground: Найдено слоев переднего плана: ", fg_layers.size())
 
 
 func _on_player_moved(direction: float) -> void:
 	# Двигаем все слои в направлении opposite to player movement
 	# direction уже отрицательный когда игрок идет вправо
 	
-	var speed_multiplier = base_speed * direction * 0.1
+	var speed_multiplier = base_speed * direction * 0.5
 	
 	# Двигаем задний фон (медленнее)
 	for layer in bg_layers:
 		layer.motion_offset.x += speed_multiplier * layer.motion_scale.x
+		# Сбрасываем offset чтобы избежать проблем с большими числами
+		if abs(layer.motion_offset.x) > 10000:
+			layer.motion_offset.x = fmod(layer.motion_offset.x, 1920)
 	
 	# Двигаем передний план (быстрее)
 	for layer in fg_layers:
 		layer.motion_offset.x += speed_multiplier * layer.motion_scale.x
+		if abs(layer.motion_offset.x) > 10000:
+			layer.motion_offset.x = fmod(layer.motion_offset.x, 1920)
 	
 	# Двигаем объекты мира
 	if world_objects_container:

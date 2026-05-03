@@ -29,6 +29,7 @@ script = ExtResource("1_player")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("4_player_sprite")
+scale = Vector2(0.4, 0.4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_player_collision")
@@ -50,63 +51,143 @@ shape = SubResource("RectangleShape2D_busstop_collision")
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
-texture = ExtResource("5_bg0")  # Fixed
+texture = ExtResource("5_bg0")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite1Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
+texture = ExtResource("5_bg0")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.2, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-texture = ExtResource("6_bg1")  # Fixed
+texture = ExtResource("6_bg1")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite2Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource("6_bg1")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-texture = ExtResource("7_bg2")  # Fixed
+texture = ExtResource("7_bg2")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite3Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource("7_bg2")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.4, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-texture = ExtResource("8_bg3")  # Fixed
+texture = ExtResource("8_bg3")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite4Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource("8_bg3")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
-texture = ExtResource("9_bg4")  # Fixed
+texture = ExtResource("9_bg4")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite5Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+texture = ExtResource("9_bg4")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.6, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
-texture = ExtResource("10_bg5")  # Fixed
+texture = ExtResource("10_bg5")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite6Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+texture = ExtResource("10_bg5")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.7, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
-texture = ExtResource("11_bg6")  # Fixed
+texture = ExtResource("11_bg6")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite7Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
+texture = ExtResource("11_bg6")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.8, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="Sprite8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8"]
-texture = ExtResource("12_bg7")  # Fixed
+texture = ExtResource("12_bg7")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="Sprite8Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8"]
+texture = ExtResource("12_bg7")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayerFG1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.2, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="SpriteFG1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1"]
-texture = ExtResource("8_bg3")  # Changed to existing texture
+texture = ExtResource("8_bg3")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="SpriteFG1Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1"]
+texture = ExtResource("8_bg3")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="ParallaxLayerFG2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.5, 0)
+motion_mirroring = Vector2(1920, 0)
 
 [node name="SpriteFG2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2"]
-texture = ExtResource("9_bg4")  # Changed to existing texture
+texture = ExtResource("9_bg4")
+scale = Vector2(2, 2)
+position = Vector2(-960, -540)
+
+[node name="SpriteFG2Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2"]
+texture = ExtResource("9_bg4")
+scale = Vector2(2, 2)
+position = Vector2(960, -540)
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("2_ui")
@@ -170,3 +251,6 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 660.0
 offset_bottom = 280.0
+
+[node name="PauseMenu" type="CanvasLayer" parent="."]
+script = ExtResource("14_pause")

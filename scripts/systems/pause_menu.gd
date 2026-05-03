@@ -16,6 +16,17 @@ var is_paused: bool = false
 
 func _ready() -> void:
 	visible = false
+	set_process_input(false)
+	
+	# Auto-create pause menu if missing
+	if not pause_panel:
+		_create_pause_menu()
+	
+	# Re-get references after creation
+	pause_panel = $PausePanel if has_node("PausePanel") else null
+	save_button = $PausePanel/SaveButton if has_node("PausePanel/SaveButton") else null
+	resume_button = $PausePanel/ResumeButton if has_node("PausePanel/ResumeButton") else null
+	quit_button = $PausePanel/QuitButton if has_node("PausePanel/QuitButton") else null
 	
 	# Only connect signals if buttons exist
 	if save_button:
@@ -24,10 +35,6 @@ func _ready() -> void:
 		resume_button.pressed.connect(_on_resume_pressed)
 	if quit_button:
 		quit_button.pressed.connect(_on_quit_pressed)
-	
-	# Auto-create pause menu if missing
-	if not pause_panel:
-		_create_pause_menu()
 
 
 func _create_pause_menu() -> void:
@@ -39,6 +46,12 @@ func _create_pause_menu() -> void:
 	pause_panel.size = Vector2(400, 300)
 	pause_panel.modulate = Color(0, 0, 0, 0.8)
 	add_child(pause_panel)
+	
+	var title_label = Label.new()
+	title_label.text = "ПАУЗА"
+	title_label.position = Vector2(160, 30)
+	title_label.add_theme_font_size_override("font_size", 32)
+	pause_panel.add_child(title_label)
 	
 	resume_button = Button.new()
 	resume_button.name = "ResumeButton"
@@ -70,6 +83,16 @@ func _create_pause_menu() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"): # ESC
 		toggle_pause()
+	
+	# Обработка нажатий кнопок в паузе
+	if is_paused and event is InputEventMouseButton and event.pressed:
+		var mouse_pos = get_viewport().get_mouse_position()
+		for button in pause_panel.get_children():
+			if button is Button:
+				var btn_rect = Rect2(button.global_position, button.size)
+				if btn_rect.has_point(mouse_pos):
+					button.grab_focus()
+					break
 
 
 func toggle_pause() -> void:
@@ -77,6 +100,10 @@ func toggle_pause() -> void:
 	visible = is_paused
 	if pause_panel:
 		pause_panel.visible = is_paused
+	
+	# Включаем/выключаем ввод для кнопок
+	set_process_input(is_paused)
+	
 	get_tree().paused = is_paused
 	
 	if is_paused:
