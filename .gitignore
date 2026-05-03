@@ -1,22 +1,26 @@
 ```
-# Godot-specific ignores
-*.import
-*.remap
-.project
-.user
-.sln
-.csproj
-.vs/
-
 # Build artifacts
+*.import
+*.bin
+*.tres
+*.tscn
+*.godot
 export_presets.cfg
 
-# Temporary files
-*.tmp
-*.temp
+# Dependencies
+addons/
+.build/
+
+# Logs
 *.log
 
-# OS generated files
+# Editor
+.vscode/
+.idea/
+*.tmp
+*.bak
+
+# System
 .DS_Store
 Thumbs.db
 ```
