@@ -1,25 +1,25 @@
-[gd_scene load_steps=16 format=3 uid="uid://main_scene"]
+[gd_scene format=3 uid="uid://dd4lb2pmynr3x"]
 
-[ext_resource type="Script" path="res://scripts/player_controller.gd" id="1_player"]
-[ext_resource type="Script" path="res://scripts/ui_controller.gd" id="2_ui"]
-[ext_resource type="Script" path="res://scripts/systems/parallax_background.gd" id="3_parallax"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player_placeholder.png" id="4_player_sprite"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer0.PNG" id="5_bg0"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer1.PNG" id="6_bg1"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer2.PNG" id="7_bg2"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer3.PNG" id="8_bg3"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer4.PNG" id="9_bg4"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer5.PNG" id="10_bg5"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer6.PNG" id="11_bg6"]
-[ext_resource type="Texture2D" path="res://assets/bg/layer7.PNG" id="12_bg7"]
-[ext_resource type="Script" path="res://scripts/systems/bus_stop.gd" id="13_busstop"]
-[ext_resource type="Script" path="res://scripts/systems/pause_menu.gd" id="14_pause"]
+[ext_resource type="Script" uid="uid://6ixg1cy70jux" path="res://scripts/player_controller.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://c1a57cq1ki87d" path="res://scripts/ui_controller.gd" id="2_ui"]
+[ext_resource type="Texture2D" uid="uid://dmgjon0anbrk2" path="res://assets/sprites/busstop.png" id="3_jkv2x"]
+[ext_resource type="Script" uid="uid://jm6whoxgs0l8" path="res://scripts/systems/parallax_background.gd" id="3_parallax"]
+[ext_resource type="Texture2D" uid="uid://cpl6w744w5laa" path="res://assets/sprites/player_placeholder.png" id="4_player_sprite"]
+[ext_resource type="Texture2D" uid="uid://b821d13hdvaci" path="res://assets/bg/layer0.PNG" id="5_bg0"]
+[ext_resource type="Texture2D" uid="uid://nnpgy6h07n0k" path="res://assets/bg/layer1.PNG" id="6_bg1"]
+[ext_resource type="Texture2D" uid="uid://ycqvphlkweli" path="res://assets/bg/layer2.PNG" id="7_bg2"]
+[ext_resource type="Texture2D" uid="uid://dmjcrhtbh0flt" path="res://assets/bg/layer3.PNG" id="8_bg3"]
+[ext_resource type="Texture2D" uid="uid://boteqire5q0ki" path="res://assets/bg/layer4.PNG" id="9_bg4"]
+[ext_resource type="Texture2D" uid="uid://dhftswwfmltra" path="res://assets/bg/layer5.PNG" id="10_bg5"]
+[ext_resource type="Texture2D" uid="uid://dgxe0pgxvtri4" path="res://assets/bg/layer6.PNG" id="11_bg6"]
+[ext_resource type="Texture2D" uid="uid://duygi51t0tghf" path="res://assets/bg/layer7.PNG" id="12_bg7"]
+[ext_resource type="Script" uid="uid://bfvktto0gldbh" path="res://scripts/systems/bus_stop.gd" id="13_busstop"]
+[ext_resource type="Script" uid="uid://dmxuol1gnrggh" path="res://scripts/systems/pause_menu.gd" id="14_pause"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player_collision"]
 size = Vector2(32, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_busstop_collision"]
-size = Vector2(64, 64)
+[node name="Main" type="Node2D" unique_id=1771971381]
 
 [node name="Main" type="Node2D"]
 
@@ -40,172 +40,148 @@ scale = Vector2(0.086, 0.086)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_player_collision")
 
-[node name="WorldObjects" type="Node2D" parent="ParallaxBackground"]
-
-[node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects"]
+[node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects" unique_id=2034818661]
 position = Vector2(1500, 700)
 script = ExtResource("13_busstop")
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop"]
-texture = ExtResource("7_bg2")  # Fixed: using existing texture ID
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/WorldObjects/BusStop"]
-shape = SubResource("RectangleShape2D_busstop_collision")
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop" unique_id=1904752072]
+texture = ExtResource("3_jkv2x")
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0.1)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
+[node name="Sprite1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1" unique_id=2100608626]
 texture = ExtResource("5_bg0")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite1Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1"]
-texture = ExtResource("5_bg0")
-scale = Vector2(1, 1)
+[node name="Sprite1Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer1" unique_id=2023263152]
 position = Vector2(1920, 0)
+texture = ExtResource("5_bg0")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.2, 0.2)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="Sprite2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=720874029]
 texture = ExtResource("6_bg1")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite2Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-texture = ExtResource("6_bg1")
-scale = Vector2(1, 1)
+[node name="Sprite2Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2" unique_id=79719773]
 position = Vector2(1920, 0)
+texture = ExtResource("6_bg1")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.3, 0.3)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="Sprite3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=644428157]
 texture = ExtResource("7_bg2")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite3Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
-texture = ExtResource("7_bg2")
-scale = Vector2(1, 1)
+[node name="Sprite3Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3" unique_id=1442142139]
 position = Vector2(1920, 0)
+texture = ExtResource("7_bg2")
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.4, 0.4)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
+[node name="Sprite4" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=646877623]
 texture = ExtResource("8_bg3")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite4Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
-texture = ExtResource("8_bg3")
-scale = Vector2(1, 1)
+[node name="Sprite4Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4" unique_id=1129158910]
 position = Vector2(1920, 0)
+texture = ExtResource("8_bg3")
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0.5)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
+[node name="Sprite5" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=481623370]
 texture = ExtResource("9_bg4")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite5Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5"]
-texture = ExtResource("9_bg4")
-scale = Vector2(1, 1)
+[node name="Sprite5Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer5" unique_id=1777100107]
 position = Vector2(1920, 0)
+texture = ExtResource("9_bg4")
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.6, 0.6)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
+[node name="Sprite6" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=328027737]
 texture = ExtResource("10_bg5")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite6Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6"]
-texture = ExtResource("10_bg5")
-scale = Vector2(1, 1)
+[node name="Sprite6Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer6" unique_id=1421565614]
 position = Vector2(1920, 0)
+texture = ExtResource("10_bg5")
 
 [node name="ParallaxLayer7" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.7, 0.7)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
+[node name="Sprite7" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7" unique_id=1722047610]
 texture = ExtResource("11_bg6")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite7Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7"]
-texture = ExtResource("11_bg6")
-scale = Vector2(1, 1)
+[node name="Sprite7Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer7" unique_id=16914277]
 position = Vector2(1920, 0)
+texture = ExtResource("11_bg6")
 
 [node name="ParallaxLayer8" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.8, 0.8)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="Sprite8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8"]
+[node name="Sprite8" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8" unique_id=1112832969]
 texture = ExtResource("12_bg7")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="Sprite8Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8"]
-texture = ExtResource("12_bg7")
-scale = Vector2(1, 1)
+[node name="Sprite8Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer8" unique_id=46732669]
 position = Vector2(1920, 0)
+texture = ExtResource("12_bg7")
 
 [node name="ParallaxLayerFG1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.2, 1.2)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="SpriteFG1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1"]
+[node name="SpriteFG1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1" unique_id=1219390831]
 texture = ExtResource("8_bg3")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="SpriteFG1Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1"]
-texture = ExtResource("8_bg3")
-scale = Vector2(1, 1)
+[node name="SpriteFG1Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG1" unique_id=1644365885]
 position = Vector2(1920, 0)
+texture = ExtResource("8_bg3")
 
 [node name="ParallaxLayerFG2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(1.5, 1.5)
 motion_offset = Vector2(0, 0)
 motion_mirroring = Vector2(1920, 1080)
 
-[node name="SpriteFG2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2"]
+[node name="SpriteFG2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2" unique_id=163362370]
 texture = ExtResource("9_bg4")
-scale = Vector2(1, 1)
-position = Vector2(0, 0)
 
-[node name="SpriteFG2Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2"]
-texture = ExtResource("9_bg4")
-scale = Vector2(1, 1)
+[node name="SpriteFG2Copy" type="Sprite2D" parent="ParallaxBackground/ParallaxLayerFG2" unique_id=218693610]
 position = Vector2(1920, 0)
+texture = ExtResource("9_bg4")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=593061020]
+position = Vector2(960, 540)
+script = ExtResource("1_player")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1193905863]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("4_player_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=154867469]
+shape = SubResource("RectangleShape2D_player_collision")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1209731444]
 script = ExtResource("2_ui")
 
-[node name="DayLabel" type="Label" parent="UI"]
+[node name="DayLabel" type="Label" parent="UI" unique_id=766783013]
 visible = false
 offset_left = 20.0
 offset_top = 20.0
@@ -213,7 +189,7 @@ offset_right = 200.0
 offset_bottom = 50.0
 text = "День 1"
 
-[node name="StateLabel" type="Label" parent="UI"]
+[node name="StateLabel" type="Label" parent="UI" unique_id=451207046]
 visible = false
 offset_left = 20.0
 offset_top = 60.0
@@ -221,7 +197,7 @@ offset_right = 200.0
 offset_bottom = 90.0
 text = "Состояние: Нейтральное"
 
-[node name="ArchetypeLabel" type="Label" parent="UI"]
+[node name="ArchetypeLabel" type="Label" parent="UI" unique_id=61514826]
 visible = false
 offset_left = 20.0
 offset_top = 100.0
@@ -229,14 +205,14 @@ offset_right = 200.0
 offset_bottom = 130.0
 text = "Архетип: -"
 
-[node name="EventPanel" type="Panel" parent="UI"]
+[node name="EventPanel" type="Panel" parent="UI" unique_id=181688805]
 visible = false
 offset_left = 400.0
 offset_top = 200.0
 offset_right = 880.0
 offset_bottom = 520.0
 
-[node name="EventText" type="RichTextLabel" parent="UI/EventPanel"]
+[node name="EventText" type="RichTextLabel" parent="UI/EventPanel" unique_id=1001074248]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
@@ -244,26 +220,26 @@ offset_right = 460.0
 offset_bottom = 200.0
 text = "Текст события..."
 
-[node name="ChoicesContainer" type="VBoxContainer" parent="UI/EventPanel"]
+[node name="ChoicesContainer" type="VBoxContainer" parent="UI/EventPanel" unique_id=632264476]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 220.0
 offset_right = 460.0
 offset_bottom = 300.0
 
-[node name="PhotoPanel" type="Panel" parent="UI"]
+[node name="PhotoPanel" type="Panel" parent="UI" unique_id=1912165658]
 visible = false
 offset_left = 300.0
 offset_top = 300.0
 offset_right = 980.0
 offset_bottom = 600.0
 
-[node name="PhotoContainer" type="HBoxContainer" parent="UI/PhotoPanel"]
+[node name="PhotoContainer" type="HBoxContainer" parent="UI/PhotoPanel" unique_id=2122952526]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 660.0
 offset_bottom = 280.0
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
+[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=568327690]
 script = ExtResource("14_pause")

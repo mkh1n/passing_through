@@ -1,0 +1,5 @@
+res://scripts/systems/pause_menu.gd
+res://scripts/systems/parallax_background.gd
+res://scripts/player_controller.gd
+res://scripts/systems/bus_stop.gd
+res://scenes/main.tscn
