@@ -13,6 +13,7 @@ var current_speed: float = 0.0
 var total_distance: float = 0.0
 var event_trigger_distance: float = 800.0
 var last_event_position: float = 0.0
+var near_interactable = null
 
 
 func _physics_process(delta: float) -> void:
