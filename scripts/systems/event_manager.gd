@@ -5,8 +5,6 @@ extends Node
 signal event_loaded(event_data: Dictionary)
 signal choices_presented(choices: Array)
 signal event_completed(result: Dictionary)
-signal minigame_requested(minigame_type: String, difficulty: float)
-signal minigame_result(success: bool)
 
 var events_db: Array[Dictionary] = []
 var archetypes_db: Dictionary = {}
@@ -236,30 +234,13 @@ func make_choice(choice_index: int) -> void:
 	
 	var choice: Dictionary = choices[choice_index]
 	
-	# Мини-игра, если требуется (сначала мини-игра, потом результат)
-	if choice.get("minigame", null):
-		var minigame_type: String = choice.minigame.get("type", "focus")
-		var difficulty: float = calculate_minigame_difficulty(choice.minigame)
-		minigame_requested.emit(minigame_type, difficulty)
-		# Результат будет обработан после завершения мини-игры
-	else:
-		var result: Dictionary = process_choice_outcome(choice)
-		event_completed.emit(result)
-		
-		# Добавление в эхо, если событие пропущено
-		if choice.get("skip_event", false):
-			GameState.add_echo(current_event.get("id", ""))
-
-
-## Расчёт сложности мини-игры
-func calculate_minigame_difficulty(minigame_data: Dictionary) -> float:
-	var base_difficulty: float = minigame_data.get("base_difficulty", 0.5)
+	# Обработка выбора (мини-игр больше нет)
+	var result: Dictionary = process_choice_outcome(choice)
+	event_completed.emit(result)
 	
-	# Корректировка по состоянию
-	var state_factor: float = float(GameState.state + 2) / 4.0 # 0.0 to 1.0
-	base_difficulty -= state_factor * 0.3 # Уменьшаем сложность при хорошем состоянии
-	
-	return clamp(base_difficulty, 0.2, 0.9)
+	# Добавление в эхо, если событие пропущено
+	if choice.get("skip_event", false):
+		GameState.add_echo(current_event.get("id", ""))
 
 
 ## Обработка последствий выбора
@@ -269,7 +250,6 @@ func process_choice_outcome(choice: Dictionary) -> Dictionary:
 		"state_change": choice.get("state_change", 0),
 		"track_changes": choice.get("track_changes", {}),
 		"archetype_shifts": choice.get("archetype_shifts", {}),
-		"photo_options": choice.get("photo_options", []),
 		"echo_trigger": choice.get("echo_trigger", null)
 	}
 	
@@ -285,11 +265,6 @@ func process_choice_outcome(choice: Dictionary) -> Dictionary:
 	for archetype in result.archetype_shifts.keys():
 		GameState.shift_archetype(archetype, result.archetype_shifts[archetype])
 	
-	# Добавление фото опций
-	if result.photo_options.size() > 0:
-		for photo in result.photo_options:
-			GameState.add_daily_photo(photo)
-	
 	# Триггер эхо
 	if result.echo_trigger:
 		GameState.add_echo(result.echo_trigger)
@@ -297,17 +272,6 @@ func process_choice_outcome(choice: Dictionary) -> Dictionary:
 	return result
 
 
-## Обработка результата мини-игры
-func handle_minigame_result(success: bool) -> void:
-	minigame_result.emit(success)
-	
-	if current_event.is_empty():
-		return
-	
-	# Поиск выбора с мини-игрой
-	for choice in current_event.get("choices", []):
-		if choice.has("minigame"):
-			var outcome_key: String = "success_outcome" if success else "fail_outcome"
-			var outcome: Dictionary = choice.minigame.get(outcome_key, {})
-			process_choice_outcome(outcome)
-			break
+## Обработка результата мини-игры (удалено - мини-игр больше нет)
+func handle_minigame_result(_success: bool) -> void:
+	pass  # Заглушка, мини-игры удалены

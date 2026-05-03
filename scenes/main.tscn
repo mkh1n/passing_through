@@ -27,26 +27,6 @@ layer_sorting_enabled = true
 z_index = -1
 
 [node name="WorldObjects" type="Node2D" parent="ParallaxBackground"]
-z_index = 10
-
-[node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects"]
-position = Vector2(1500, 700)
-script = ExtResource("13_busstop")
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/WorldObjects/BusStop"]
-texture = ExtResource("3_jkv2x")
-
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(960, 540)
-script = ExtResource("1_player")
-z_index = 100
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("4_player_sprite")
-scale = Vector2(0.086, 0.086)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_player_collision")
 
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.1, 0.1)
@@ -152,7 +132,19 @@ texture = ExtResource("12_bg7")
 position = Vector2(1920, 0)
 texture = ExtResource("12_bg7")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." unique_id=593061020]
+position = Vector2(960, 540)
+script = ExtResource("1_player")
+z_index = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1193905863]
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("4_player_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=154867469]
+shape = SubResource("RectangleShape2D_player_collision")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1209731444]
 script = ExtResource("2_ui")
 
 [node name="DayLabel" type="Label" parent="UI"]

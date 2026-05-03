@@ -40,11 +40,11 @@ var echo_events: Array[String] = []
 # Активное событие (текущая сцена)
 var current_event: Dictionary = {}
 
-# Фото за текущий день
-var daily_photos: Array[Dictionary] = []
+# Фото за текущий день (удалено - фото механика вырезана)
+# var daily_photos: Array[Dictionary] = []
 
-# Сохранённая память (выбранное фото в конце дня)
-var memory: Array[Dictionary] = []
+# Сохранённая память (выбранное фото в конце дня) - удалено
+# var memory: Array[Dictionary] = []
 
 
 func _ready() -> void:
@@ -63,8 +63,8 @@ func start_new_game() -> void:
 	state = 0
 	current_day = 1
 	echo_events.clear()
-	daily_photos.clear()
-	memory.clear()
+	# daily_photos.clear() - удалено
+	# memory.clear() - удалено
 	current_lens = "observation"
 	
 	day_started.emit(current_day)
@@ -124,27 +124,27 @@ func remove_echo(event_id: String) -> void:
 ## Начало нового дня
 func start_next_day() -> void:
 	current_day += 1
-	daily_photos.clear()
+	# daily_photos.clear() - удалено
 	
 	if current_day <= 15:
 		day_started.emit(current_day)
 
 
-## Добавление фото за день
-func add_daily_photo(photo_data: Dictionary) -> void:
-	if daily_photos.size() < 3:
-		daily_photos.append(photo_data)
+## Добавление фото за день (удалено)
+# func add_daily_photo(photo_data: Dictionary) -> void:
+# 	if daily_photos.size() < 3:
+# 		daily_photos.append(photo_data)
 
 
-## Выбор финального фото для памяти
-func select_memory(index: int) -> Dictionary:
-	if index < 0 or index >= daily_photos.size():
-		return {}
-	
-	var selected: Dictionary = daily_photos[index]
-	daily_photos.clear()
-	memory.append(selected)
-	return selected
+## Выбор финального фото для памяти (удалено)
+# func select_memory(index: int) -> Dictionary:
+# 	if index < 0 or index >= daily_photos.size():
+# 		return {}
+# 	
+# 	var selected: Dictionary = daily_photos[index]
+# 	daily_photos.clear()
+# 	memory.append(selected)
+# 	return selected
 
 
 ## Получение всех данных состояния для сохранения
@@ -157,7 +157,7 @@ func get_save_data() -> Dictionary:
 		"state": state,
 		"current_day": current_day,
 		"echo_events": echo_events,
-		"memory": memory,
+		# "memory": memory, - удалено
 		"current_lens": current_lens
 	}
 
@@ -171,5 +171,5 @@ func load_save_data(data: Dictionary) -> void:
 	state = data.get("state", 0)
 	current_day = data.get("current_day", 1)
 	echo_events = data.get("echo_events", [])
-	memory = data.get("memory", [])
+	# memory = data.get("memory", []) - удалено
 	current_lens = data.get("current_lens", "observation")
