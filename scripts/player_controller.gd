@@ -34,8 +34,8 @@ func handle_movement(delta: float) -> void:
 		# Плавная остановка (трение)
 		current_speed = move_toward(current_speed, 0, friction * delta)
 	
-	# Игрок не двигается физически, но мы передаем скорость для параллакса
-	# velocity.x = current_speed
+	# Применяем движение к игроку
+	velocity.x = current_speed
 	
 	# Отражение спрайта по направлению движения
 	if current_speed > 0:

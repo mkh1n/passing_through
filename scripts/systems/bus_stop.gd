@@ -17,8 +17,8 @@ func _ready() -> void:
 
 
 func move_with_parallax(speed: float) -> void:
-	# Двигаем объект вместе с фоном
-	global_position.x += speed * parallax_speed * 100
+	# Двигаем объект вместе с фоном (просто добавляем скорость к позиции)
+	position.x += speed
 
 
 func can_take_photo() -> bool:
