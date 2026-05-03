@@ -28,17 +28,7 @@ script = ExtResource("3_parallax")
 layer_sorting_enabled = true
 z_index = -1
 
-[node name="Player" type="CharacterBody2D" parent="."]
-position = Vector2(960, 540)
-script = ExtResource("1_player")
-z_index = 100
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("4_player_sprite")
-scale = Vector2(0.086, 0.086)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_player_collision")
+[node name="WorldObjects" type="Node2D" parent="ParallaxBackground"]
 
 [node name="BusStop" type="Area2D" parent="ParallaxBackground/WorldObjects" unique_id=2034818661]
 position = Vector2(1500, 700)
@@ -154,6 +144,7 @@ texture = ExtResource("12_bg7")
 [node name="Player" type="CharacterBody2D" parent="." unique_id=593061020]
 position = Vector2(960, 540)
 script = ExtResource("1_player")
+z_index = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1193905863]
 scale = Vector2(0.08, 0.08)

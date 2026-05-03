@@ -2,6 +2,7 @@ extends ParallaxBackground
 ## ParallaxBackground - Управление параллакс фоном
 ## 8 слоев заднего фона (без переднего плана)
 ## Фон двигается в противоположную сторону от движения игрока
+## Z-index: чем МЕНЬШЕ номер слоя, тем ВЫШЕ он визуально (слой 1 выше слоя 8)
 
 @export var player: CharacterBody2D
 
@@ -12,7 +13,7 @@ extends ParallaxBackground
 @onready var world_objects_container: Node2D = $WorldObjects if has_node("WorldObjects") else null
 
 var base_speed: float = 1.0
-var last_player_pos: Vector2 = Vector2.ZERO
+var accumulated_movement: float = 0.0
 
 
 func _ready() -> void:
@@ -23,19 +24,12 @@ func _ready() -> void:
 	if player == null:
 		player = get_node_or_null("../Player")
 	
-	if player:
-		last_player_pos = player.global_position
-	
 	# Устанавливаем scroll_offset в 0 для корректной работы
 	scroll_offset = Vector2.ZERO
 	
-	# Проверяем что слои имеют правильный размер и позицию
-	for layer in bg_layers:
-		for child in layer.get_children():
-			if child is Sprite2D:
-				# Убеждаемся что спрайты позиционированы правильно
-				if child.position.x < 0:
-					child.position.x = 0
+	# Настраиваем Z-index: чем меньше номер слоя, тем выше он визуально
+	# Слой 1 (z_index=7) должен быть выше слоя 8 (z_index=0)
+	_setup_layer_z_indices()
 	
 	print("ParallaxBackground готов. Слоев BG: ", bg_layers.size())
 
@@ -46,21 +40,39 @@ func _collect_parallax_layers() -> void:
 		if child is ParallaxLayer:
 			bg_layers.append(child)
 	
-	# Сортируем слои по z-index (чем меньше номер слоя, тем выше он визуально)
-	bg_layers.sort_custom(func(a, b): return a.z_index > b.z_index)
+	# Сортируем слои по motion_scale (от меньшего к большему)
+	# Меньший motion_scale = более дальний план = ниже z_index
+	bg_layers.sort_custom(func(a, b): return a.motion_scale.x < b.motion_scale.x)
 
 
-func _process(_delta: float) -> void:
+func _setup_layer_z_indices() -> void:
+	# Настраиваем Z-index правильно: чем меньше номер слоя, тем выше он визуально
+	# Layer1 (motion_scale 0.1) -> z_index = 7 (самый верхний из фонов)
+	# Layer8 (motion_scale 0.8) -> z_index = 0 (самый нижний из фонов)
+	for i in range(bg_layers.size()):
+		var layer = bg_layers[i]
+		layer.z_index = bg_layers.size() - 1 - i
+	
+	print("Z-indices настроены:")
+	for layer in bg_layers:
+		print("  Layer motion_scale: ", layer.motion_scale.x, " -> z_index: ", layer.z_index)
+
+
+func _process(delta: float) -> void:
 	if not player:
 		return
 	
-	# Вычисляем движение игрока
-	var player_movement = player.global_position - last_player_pos
+	# Получаем скорость движения от игрока через сигнал
+	# Игрок эмитит player_moved с направлением (-speed когда идет вправо)
+	var player_speed = 0.0
+	if player.has_signal("player_moved"):
+		# Используем накопленное движение из player_controller
+		player_speed = player.current_speed
 	
-	if abs(player_movement.x) > 0.1:
-		# Двигаем все слои параллакса вручную для правильного эффекта
-		# Игрок движется вправо -> фон движется влево (отрицательное значение)
-		var movement_amount = -player_movement.x
+	if abs(player_speed) > 0.1:
+		# Двигаем все слои параллакса
+		# Игрок идет вправо (positive speed) -> фон движется влево (negative offset)
+		var movement_amount = -player_speed * delta
 		
 		# Двигаем задний фон с учетом их motion_scale
 		for layer in bg_layers:
@@ -71,5 +83,3 @@ func _process(_delta: float) -> void:
 			for obj in world_objects_container.get_children():
 				if obj.has_method("move_with_parallax"):
 					obj.move_with_parallax(movement_amount)
-		
-		last_player_pos = player.global_position

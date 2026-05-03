@@ -1,18 +1,41 @@
 ```
-# Build artifacts
+# Godot-specific ignores
 *.import
 *.remap
 export_presets.cfg
+.autoload_singleton_nodes
+.editor/
 
-# Temporary files
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.ilk
+
+# Dependencies and virtual environments
+node_modules/
+venv/
+.venv/
+.env
+.env.local
+.env.*
+
+# Logs and temporary files
+*.log
 *.tmp
 *.temp
+*.cache
 
-# Editor files
-.vscode/
-.idea/
-
-# System files
+# OS generated files
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
 ```

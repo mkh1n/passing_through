@@ -134,8 +134,8 @@ func _on_event_loaded(event_data: Dictionary) -> void:
 	
 	# Блокируем движение игрока во время события
 	var player = get_node_or_null("../Player")
-	if player:
-		player.set_process(false)
+	if player and player.has_method("set_blocked"):
+		player.set_blocked(true)
 
 
 func format_event_text(event_data: Dictionary) -> String:
@@ -173,8 +173,8 @@ func _on_choice_button_pressed(index: int) -> void:
 func _on_event_completed(result: Dictionary) -> void:
 	# Разблокируем движение игрока
 	var player = get_node_or_null("../Player")
-	if player:
-		player.set_process(true)
+	if player and player.has_method("set_blocked"):
+		player.set_blocked(false)
 	
 	hide_all_panels()
 	GameManager.on_event_completed(result)
@@ -182,6 +182,15 @@ func _on_event_completed(result: Dictionary) -> void:
 	# Сбрасываем счетчик расстояния у игрока
 	if player and player.has_method("reset_event_counter"):
 		player.reset_event_counter()
+	
+	# Добавляем информацию о выборе в debug лог
+	if current_event.get("choices", []).size() > 0:
+		var track_changes = result.get("track_changes", {})
+		var archetype_shifts = result.get("archetype_shifts", {})
+		for track in track_changes.keys():
+			add_debug_log("ТРЕК [" + track + "]: " + str(track_changes[track]))
+		for arch in archetype_shifts.keys():
+			add_debug_log("АРХЕТИП [" + arch + "]: " + str(archetype_shifts[arch]))
 
 
 func check_day_completion() -> void:
