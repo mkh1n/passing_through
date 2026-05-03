@@ -11,27 +11,28 @@ extends Node2D
 @onready var fg_layers: Array[ParallaxLayer] = []
 
 # Объекты мира (остановки, предметы)
-@onready var world_objects_container: Node2D = $WorldObjects
+@onready var world_objects_container: Node2D = $WorldObjects if has_node("WorldObjects") else null
 
 var base_speed: float = 1.0
+var last_player_pos: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
 	# Находим все слои параллакса
 	_collect_parallax_layers()
 	
-	# Подключаемся к сигналу игрока
+	# Находим игрока
 	if player == null:
 		player = get_node_or_null("../Player")
 	
-	if player and player.has_signal("player_moved"):
-		player.player_moved.connect(_on_player_moved)
+	if player:
+		last_player_pos = player.global_position
 	
 	print("ParallaxBackground готов. Слоев BG: ", bg_layers.size(), ", FG: ", fg_layers.size())
 
 
 func _collect_parallax_layers() -> void:
-	# Собираем слои заднего фона (motion_scale < 1.0)
+	# Собираем слои заднего фона (motion_scale < 1.0) и переднего плана (motion_scale >= 1.0)
 	for child in get_children():
 		if child is ParallaxLayer:
 			var motion_x = child.motion_scale.x
@@ -39,32 +40,32 @@ func _collect_parallax_layers() -> void:
 				bg_layers.append(child)
 			else:
 				fg_layers.append(child)
-	
-	print("ParallaxBackground: Найдено слоев заднего фона: ", bg_layers.size())
-	print("ParallaxBackground: Найдено слоев переднего плана: ", fg_layers.size())
 
 
-func _on_player_moved(direction: float) -> void:
-	# Двигаем все слои в направлении opposite to player movement
-	# direction уже отрицательный когда игрок идет вправо
+func _process(_delta: float) -> void:
+	if not player:
+		return
 	
-	var speed_multiplier = base_speed * direction * 0.5
+	# Вычисляем движение игрока
+	var player_movement = player.global_position - last_player_pos
 	
-	# Двигаем задний фон (медленнее)
-	for layer in bg_layers:
-		layer.motion_offset.x += speed_multiplier * layer.motion_scale.x
-		# Сбрасываем offset чтобы избежать проблем с большими числами
-		if abs(layer.motion_offset.x) > 10000:
-			layer.motion_offset.x = fmod(layer.motion_offset.x, 1920)
-	
-	# Двигаем передний план (быстрее)
-	for layer in fg_layers:
-		layer.motion_offset.x += speed_multiplier * layer.motion_scale.x
-		if abs(layer.motion_offset.x) > 10000:
-			layer.motion_offset.x = fmod(layer.motion_offset.x, 1920)
-	
-	# Двигаем объекты мира
-	if world_objects_container:
-		for obj in world_objects_container.get_children():
-			if obj.has_method("move_with_parallax"):
-				obj.move_with_parallax(speed_multiplier)
+	if abs(player_movement.x) > 0.1:
+		# Двигаем все слои параллакса вручную для правильного эффекта
+		# Игрок движется вправо -> фон движется влево (отрицательное значение)
+		var movement_amount = -player_movement.x
+		
+		# Двигаем задний фон с учетом их motion_scale
+		for layer in bg_layers:
+			layer.motion_offset.x += movement_amount * layer.motion_scale.x
+		
+		# Двигаем передний план с учетом их motion_scale  
+		for layer in fg_layers:
+			layer.motion_offset.x += movement_amount * layer.motion_scale.x
+		
+		# Двигаем объекты мира вместе с фоном
+		if world_objects_container:
+			for obj in world_objects_container.get_children():
+				if obj.has_method("move_with_parallax"):
+					obj.move_with_parallax(movement_amount)
+		
+		last_player_pos = player.global_position
