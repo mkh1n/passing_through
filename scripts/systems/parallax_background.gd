@@ -1,4 +1,4 @@
-extends Node2D
+extends ParallaxBackground
 ## ParallaxBackground - Управление параллакс фоном
 ## 8 слоев заднего фона, 2 слоя переднего плана
 ## Фон двигается в противоположную сторону от движения игрока
@@ -27,6 +27,17 @@ func _ready() -> void:
 	
 	if player:
 		last_player_pos = player.global_position
+	
+	# Устанавливаем scroll_offset в 0 для корректной работы
+	scroll_offset = Vector2.ZERO
+	
+	# Проверяем что слои имеют правильный размер и позицию
+	for layer in bg_layers + fg_layers:
+		for child in layer.get_children():
+			if child is Sprite2D:
+				# Убеждаемся что спрайты позиционированы правильно
+				if child.position.x < 0:
+					child.position.x = 0
 	
 	print("ParallaxBackground готов. Слоев BG: ", bg_layers.size(), ", FG: ", fg_layers.size())
 
