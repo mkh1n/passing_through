@@ -3,16 +3,16 @@ extends CharacterBody2D
 ## Игрок всегда в центре, двигается фон и объекты мира
 
 signal player_moved(direction: float)
-signal photo_requested()
 
-@export var speed: float = 2.0
-@export var acceleration: float = 800.0
-@export var friction: float = 1000.0
+@export var speed: float = 300.0
+@export var acceleration: float = 1500.0
+@export var friction: float = 1200.0
 
 var is_moving: bool = false
 var current_speed: float = 0.0
-var can_take_photo: bool = false
-var near_interactable: bool = false
+var total_distance: float = 0.0
+var event_trigger_distance: float = 800.0
+var last_event_position: float = 0.0
 
 
 func _physics_process(delta: float) -> void:
@@ -43,8 +43,9 @@ func handle_movement(delta: float) -> void:
 	elif current_speed < 0:
 		$Sprite2D.flip_h = true
 	
-	# Сигнал для движения фона (противоположное направление)
+	# Отслеживаем пройденное расстояние для триггера событий
 	if current_speed != 0:
+		total_distance += abs(current_speed * delta)
 		player_moved.emit(-current_speed)
 
 
@@ -63,11 +64,9 @@ func check_nearby_objects() -> void:
 	var result: Dictionary = space_state.intersect_ray(query)
 	if result:
 		var collider: Node = result.collider
-		near_interactable = collider.is_in_group("interactables") or collider.has_method("can_take_photo")
-		can_take_photo = collider.has_method("can_take_photo") and collider.can_take_photo()
+		near_interactable = collider.is_in_group("interactables")
 	else:
 		near_interactable = false
-		can_take_photo = false
 
 
 ## Взаимодействие с объектами мира
@@ -88,13 +87,11 @@ func interact() -> void:
 				collider.interact()
 
 
-## Запуск мини-игры (если требуется событием)
-func trigger_minigame(minigame_type: String, difficulty: float) -> void:
-	print("Мини-игра запрошена: ", minigame_type, " сложность: ", difficulty)
+## Проверка необходимости запуска события
+func should_trigger_event() -> bool:
+	return total_distance - last_event_position >= event_trigger_distance
 
 
-## Фото-триггер (нажатие Q во время события)
-func trigger_photo() -> void:
-	if can_take_photo:
-		photo_requested.emit()
-		print("Фото триггер активирован")
+## Сброс счетчика расстояния после события
+func reset_event_counter() -> void:
+	last_event_position = total_distance

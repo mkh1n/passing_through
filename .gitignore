@@ -1,26 +1,18 @@
 ```
 # Build artifacts
 *.import
-*.bin
-*.tres
-*.tscn
-*.godot
+*.remap
 export_presets.cfg
 
-# Dependencies
-addons/
-.build/
+# Temporary files
+*.tmp
+*.temp
 
-# Logs
-*.log
-
-# Editor
+# Editor files
 .vscode/
 .idea/
-*.tmp
-*.bak
 
-# System
+# System files
 .DS_Store
 Thumbs.db
 ```
