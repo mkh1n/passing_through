@@ -16,13 +16,212 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
 
-[sub_resource type="Animation" id="Animation_ycdy4"]
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+loop_mode = 1
+length = 1.0
+tracks/0/type = "value"
+tracks/0/imported = ""
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton/Body/LeftUpperArm:pose_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.15), Vector3(0, 0, -0.15)]
+}
+tracks/1/type = "value"
+tracks/1/imported = ""
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton/Body/RightUpperArm:pose_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.15), Vector3(0, 0, 0.15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = ""
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton/Body/LeftLowerArm:pose_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.3), Vector3(0, 0, 0.3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = ""
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton/Body/RightLowerArm:pose_rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.3), Vector3(0, 0, -0.3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = ""
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton/Body/UpperLegL:pose_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.1), Vector3(0, 0, -0.1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = ""
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton/Body/LowerLegL:pose_rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.2), Vector3(0, 0, 0.2)]
+}
+tracks/6/type = "value"
+tracks/6/imported = ""
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton/Body/RightUpperLeg:pose_rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.1), Vector3(0, 0, 0.1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = ""
+tracks/7/enabled = true
+tracks/7/path = NodePath("Skeleton/Body/RightLowerLeg:pose_rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.2), Vector3(0, 0, -0.2)]
+}
+
+[sub_resource type="Animation" id="Animation_walk"]
 resource_name = "walk"
 loop_mode = 1
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = ""
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton/Body/LeftUpperArm:pose_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.5), Vector3(0, 0, 0.3), Vector3(0, 0, -0.5), Vector3(0, 0, 0.3), Vector3(0, 0, -0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = ""
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton/Body/RightUpperArm:pose_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.5), Vector3(0, 0, -0.3), Vector3(0, 0, 0.5), Vector3(0, 0, -0.3), Vector3(0, 0, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = ""
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton/Body/LeftLowerArm:pose_rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.6), Vector3(0, 0, -0.4), Vector3(0, 0, 0.6), Vector3(0, 0, -0.4), Vector3(0, 0, 0.6)]
+}
+tracks/3/type = "value"
+tracks/3/imported = ""
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton/Body/RightLowerArm:pose_rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.6), Vector3(0, 0, 0.4), Vector3(0, 0, -0.6), Vector3(0, 0, 0.4), Vector3(0, 0, -0.6)]
+}
+tracks/4/type = "value"
+tracks/4/imported = ""
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton/Body/UpperLegL:pose_rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.4), Vector3(0, 0, 0.3), Vector3(0, 0, -0.4), Vector3(0, 0, 0.3), Vector3(0, 0, -0.4)]
+}
+tracks/5/type = "value"
+tracks/5/imported = ""
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton/Body/LowerLegL:pose_rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.5), Vector3(0, 0, -0.2), Vector3(0, 0, 0.5), Vector3(0, 0, -0.2), Vector3(0, 0, 0.5)]
+}
+tracks/6/type = "value"
+tracks/6/imported = ""
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton/Body/RightUpperLeg:pose_rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, 0.4), Vector3(0, 0, -0.3), Vector3(0, 0, 0.4), Vector3(0, 0, -0.3), Vector3(0, 0, 0.4)]
+}
+tracks/7/type = "value"
+tracks/7/imported = ""
+tracks/7/enabled = true
+tracks/7/path = NodePath("Skeleton/Body/RightLowerLeg:pose_rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector3(0, 0, -0.5), Vector3(0, 0, 0.2), Vector3(0, 0, -0.5), Vector3(0, 0, 0.2), Vector3(0, 0, -0.5)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w48qg"]
 _data = {
-&"walk": SubResource("Animation_ycdy4")
+&"idle": SubResource("Animation_idle"),
+&"walk": SubResource("Animation_walk")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
