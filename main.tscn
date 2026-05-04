@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://cr833trl38yea"]
+
+[ext_resource type="Script" uid="uid://cywk3nhnn4ps0" path="res://scripts/main.gd" id="1_7mycd"]
+[ext_resource type="Script" uid="uid://c5qfp2wwbjveh" path="res://scripts/player.gd" id="2_272bh"]
+[ext_resource type="Script" uid="uid://c4e1j2dyy5jso" path="res://scripts/scene_manager.gd" id="3_5vw27"]
+[ext_resource type="Texture2D" uid="uid://d21q63gqmk5fd" path="res://assets/player_placeholder.png" id="3_272bh"]
+[ext_resource type="Script" uid="uid://bfoybx6djy3vp" path="res://scripts/photo_system.gd" id="4_kek77"]
+[ext_resource type="Script" uid="uid://dkwgilcwtxtjw" path="res://scripts/scene_ui.gd" id="5_4c57u"]
+[ext_resource type="Script" uid="uid://d0uxxmody4685" path="res://scripts/scene_trigger.gd" id="6_efxa6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
+size = Vector2(5.1449995, 8.84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
+size = Vector2(20, 3.8499992)
+
+[node name="Main" type="Node2D" unique_id=783242529]
+script = ExtResource("1_7mycd")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1942087899]
+script = ExtResource("2_272bh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1530956530]
+scale = Vector2(12, 12)
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=476462037]
+scale = Vector2(0.11, 0.1)
+texture = ExtResource("3_272bh")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=85335819]
+
+[node name="SceneManager" type="Node" parent="." unique_id=1627266754]
+script = ExtResource("3_5vw27")
+
+[node name="PhotoSystem" type="Node" parent="." unique_id=1863196509]
+script = ExtResource("4_kek77")
+
+[node name="SceneUI" type="Control" parent="." unique_id=917637266]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_4c57u")
+
+[node name="Panel" type="Panel" parent="SceneUI" unique_id=854968769]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SceneUI/Panel" unique_id=2038241936]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="Button1" type="Button" parent="SceneUI/Panel/VBoxContainer" unique_id=1677696794]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="SceneUI/Panel/VBoxContainer" unique_id=1481999830]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="SceneUI/Panel/VBoxContainer" unique_id=45612735]
+layout_mode = 2
+
+[node name="Trigger" type="Area2D" parent="." unique_id=1308805013 groups=["scene_triggers"]]
+script = ExtResource("6_efxa6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=1424574367]
+position = Vector2(636.25, 62)
+scale = Vector2(100, 100)
+shape = SubResource("RectangleShape2D_dg77c")
+
+[node name="Ground" type="StaticBody2D" parent="." unique_id=1924778669]
+position = Vector2(-29, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=502645273]
+position = Vector2(22, 337.99997)
+scale = Vector2(100, 100)
+shape = SubResource("RectangleShape2D_272bh")
+
+[node name="ColorRect" type="ColorRect" parent="Ground" unique_id=652036048]
+offset_left = -972.0
+offset_top = 151.0
+offset_right = 1032.0
+offset_bottom = 531.0
+color = Color(0.26838076, 0.07696388, 2.4065375e-08, 1)
