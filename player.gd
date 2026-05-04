@@ -60,7 +60,7 @@ func _ready():
 	set_applied_force(Vector2(0,extra_gravity))
 	
 	
-	anim_player = get_node("rotate/character_sprites/AnimationPlayer")
+	anim_player = get_node("AnimationPlayer")
 
 func rotate_behavior():
 	if ORIENTATION == "right" and ORIENTATION_NEXT == "left":
@@ -93,19 +93,19 @@ func ground_state(delta):
 	if btn_left.check() == 2:
 		move(-player_speed, acceleration, delta)
 		ORIENTATION_NEXT = "left"
-		anim = "run"
-		anim_speed = 2.0
+		anim = "walk"
+		anim_speed = 1.5
 		anim_blend = 0.2
 	elif btn_right.check() == 2:
 		move(player_speed, acceleration, delta)
 		ORIENTATION_NEXT = "right"
-		anim = "run"
-		anim_speed = 2.0
+		anim = "walk"
+		anim_speed = 1.5
 		anim_blend = 0.2
 	else:
 		move(0, acceleration, delta)
 		anim = "idle"
-		anim_speed = .5
+		anim_speed = 1.0
 		anim_blend = 0.2
 	
 	
