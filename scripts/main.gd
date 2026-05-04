@@ -9,7 +9,6 @@ extends Node2D
 func _ready():
 	# подключаем триггер
 	$Trigger.triggered.connect(_on_triggered)
-	
 	ui.choice_selected.connect(_on_choice)
 
 func _on_triggered(scene_id):
