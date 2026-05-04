@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var skeleton = $Skeleton
 
 func _ready():
-	
+	add_to_group("player")
 	# ДИАГНОСТИКА
 	print("=== ДИАГНОСТИКА СКЕЛЕТА ===")
 	print("AnimationPlayer: ", anim)
@@ -67,6 +67,7 @@ func _physics_process(delta):
 	update_animation(dir)
 
 	move_and_slide()
+	
 
 
 func update_animation(dir):

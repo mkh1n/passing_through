@@ -13,9 +13,21 @@
 [ext_resource type="Texture2D" uid="uid://8kcdb3apdcp" path="res://assets/player/lowerLeg.png" id="8_yaehf"]
 [ext_resource type="Texture2D" uid="uid://dxc7grbp37jij" path="res://assets/player/upperLeg.png" id="9_074og"]
 [ext_resource type="Texture2D" uid="uid://c7nrmukegexvo" path="res://assets/player/body.png" id="10_cegan"]
+[ext_resource type="Texture2D" uid="uid://btxhldhmq7gf8" path="res://assets/busStop.png" id="13_0odxb"]
+[ext_resource type="Script" uid="uid://blss5wfvwbxt4" path="res://scripts/ground_script.gd" id="14_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://cjglogompo8d7" path="res://assets/bg/01_Mist.png" id="14_d13ii"]
+[ext_resource type="Texture2D" uid="uid://ctpiqb6d0njgy" path="res://assets/bg/02_Bushes.png" id="15_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://cvjdefcw1k8vf" path="res://assets/bg/03_Particles.png" id="16_0odxb"]
+[ext_resource type="Texture2D" uid="uid://dfabjvrhm8mrt" path="res://assets/bg/04_Forest.png" id="17_lswn8"]
+[ext_resource type="Texture2D" uid="uid://bjo6n6i1ojhyv" path="res://assets/bg/05_Particles.png" id="18_a6jrf"]
+[ext_resource type="Texture2D" uid="uid://cbljsckabxgrl" path="res://assets/bg/06_Forest.png" id="19_xuqvo"]
+[ext_resource type="Texture2D" uid="uid://be0a86ccsx2br" path="res://assets/bg/07_Forest.png" id="20_qsp4k"]
+[ext_resource type="Texture2D" uid="uid://brau6euhdmv1c" path="res://assets/bg/08_Forest.png" id="21_kq58d"]
+[ext_resource type="Texture2D" uid="uid://cuxyppxm45536" path="res://assets/bg/09_Forest.png" id="22_seu75"]
+[ext_resource type="Texture2D" uid="uid://c6phaisfry325" path="res://assets/bg/10_Sky.png" id="23_htxhm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
-size = Vector2(13.166667, 19.125)
+size = Vector2(100, 235)
 
 [sub_resource type="Animation" id="Animation_idle"]
 resource_name = "idle"
@@ -262,28 +274,33 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
-size = Vector2(5.1449995, 8.84)
+size = Vector2(6.6, 4.6400003)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
-size = Vector2(20, 3.8499992)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0odxb"]
+size = Vector2(1920, 20)
 
 [node name="Main" type="Node2D" unique_id=783242529]
 script = ExtResource("1_7mycd")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1942087899]
+z_index = 10
+position = Vector2(955, 550)
 script = ExtResource("2_272bh")
+speed = 1000.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1530956530]
-position = Vector2(2.999998, -2.249998)
-scale = Vector2(12, 12)
+position = Vector2(-1.9073486e-06, 400)
 shape = SubResource("RectangleShape2D_5vw27")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=85335819]
+limit_enabled = false
 
 [node name="Skeleton" type="Skeleton2D" parent="Player" unique_id=155240070]
+position = Vector2(0, 405)
 
 [node name="Body" type="Bone2D" parent="Player/Skeleton" unique_id=1919251972]
-rotation = 0.04
+position = Vector2(1, 1)
+rotation = 0.03
 rest = Transform2D(0.99897057, -0.04536299, 0.04536299, 0.99897057, 1, 1)
 
 [node name="Head" type="Bone2D" parent="Player/Skeleton/Body" unique_id=129594644]
@@ -299,13 +316,13 @@ texture = ExtResource("4_5vw27")
 
 [node name="UpperArmR" type="Bone2D" parent="Player/Skeleton/Body" unique_id=1539645545]
 position = Vector2(12.98355, -67.419785)
-rotation = -0.55
+rotation = -0.19999999
 rest = Transform2D(1, 0, 0, 1, 16.979546, -65.296974)
 
 [node name="LowerArmR" type="Bone2D" parent="Player/Skeleton/Body/UpperArmR" unique_id=1805643235]
 position = Vector2(-4.3568153, 51.855743)
 rotation = 0.65000004
-scale = Vector2(0.9999999, 0.9999999)
+scale = Vector2(0.9999998, 0.9999998)
 rest = Transform2D(0.26555607, 0.9640954, -0.9640954, 0.26555607, -4.3568153, 51.855743)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/UpperArmR/LowerArmR" unique_id=2036521764]
@@ -322,7 +339,7 @@ texture = ExtResource("6_vivmo")
 
 [node name="UpperLegR" type="Bone2D" parent="Player/Skeleton/Body" unique_id=1788006345]
 position = Vector2(8.674179, 29.423779)
-rotation = 0.5
+rotation = 0.1
 rest = Transform2D(0.9198215, 0.3923371, -0.3923371, 0.9198215, 8.674179, 29.423779)
 
 [node name="LowerLegR" type="Bone2D" parent="Player/Skeleton/Body/UpperLegR" unique_id=186237902]
@@ -356,7 +373,7 @@ texture = ExtResource("9_074og")
 [node name="UpperArmL" type="Bone2D" parent="Player/Skeleton/Body" unique_id=532305833]
 z_index = 100
 position = Vector2(-15.938, -67.929)
-rotation = 0.55
+rotation = 0.19999999
 rest = Transform2D(0.8580649, -0.5135413, 0.5135413, 0.8580649, -18.93803, -67.929016)
 
 [node name="LowerArmL" type="Bone2D" parent="Player/Skeleton/Body/UpperArmL" unique_id=369162334]
@@ -381,7 +398,7 @@ texture = ExtResource("6_vivmo")
 
 [node name="UpperLegL" type="Bone2D" parent="Player/Skeleton/Body" unique_id=1306414739]
 position = Vector2(-12.394931, 30.469097)
-rotation = -0.5
+rotation = -0.1
 rest = Transform2D(0.9238795, -0.38268346, 0.38268346, 0.9238795, -12.394931, 30.469097)
 
 [node name="LowerLegL" type="Bone2D" parent="Player/Skeleton/Body/UpperLegL" unique_id=983347181]
@@ -426,54 +443,166 @@ script = ExtResource("3_5vw27")
 [node name="PhotoSystem" type="Node" parent="." unique_id=1863196509]
 script = ExtResource("4_kek77")
 
-[node name="SceneUI" type="Control" parent="." unique_id=917637266]
+[node name="Trigger" type="Area2D" parent="." unique_id=1308805013 groups=["scene_triggers"]]
+position = Vector2(3336, 832)
+script = ExtResource("6_efxa6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=1424574367]
+position = Vector2(-7, -9)
+scale = Vector2(100, 100)
+shape = SubResource("RectangleShape2D_dg77c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Trigger" unique_id=2014824937]
+texture = ExtResource("13_0odxb")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1780443708]
+
+[node name="1" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1083385603]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/1" unique_id=2049502953]
+z_index = 100
+texture = ExtResource("14_d13ii")
+centered = false
+
+[node name="2" type="ParallaxLayer" parent="ParallaxBackground" unique_id=282126573]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/2" unique_id=1983362624]
+z_index = 100
+texture = ExtResource("15_1u8w0")
+centered = false
+
+[node name="3" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1366709474]
+motion_scale = Vector2(1, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/3" unique_id=563128400]
+z_index = 100
+texture = ExtResource("16_0odxb")
+centered = false
+
+[node name="4" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1558360299]
+motion_scale = Vector2(0.9, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/4" unique_id=1300139756]
+z_index = -4
+texture = ExtResource("17_lswn8")
+centered = false
+
+[node name="5" type="ParallaxLayer" parent="ParallaxBackground" unique_id=954974591]
+motion_scale = Vector2(0.8, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/5" unique_id=328144213]
+z_index = -5
+texture = ExtResource("18_a6jrf")
+centered = false
+
+[node name="6" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1358055307]
+motion_scale = Vector2(0.5, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/6" unique_id=1241797800]
+z_index = -6
+texture = ExtResource("19_xuqvo")
+centered = false
+
+[node name="7" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1154527894]
+motion_scale = Vector2(0.4, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/7" unique_id=21427833]
+z_index = -7
+texture = ExtResource("20_qsp4k")
+centered = false
+
+[node name="8" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1850485678]
+motion_scale = Vector2(0.3, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/8" unique_id=244196316]
+z_index = -8
+texture = ExtResource("21_kq58d")
+centered = false
+
+[node name="9" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1771640292]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/9" unique_id=2049004982]
+z_index = -9
+texture = ExtResource("22_seu75")
+centered = false
+
+[node name="10" type="ParallaxLayer" parent="ParallaxBackground" unique_id=471137793]
+motion_scale = Vector2(0.1, 0)
+motion_mirroring = Vector2(1920, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/10" unique_id=70796432]
+z_index = -10
+texture = ExtResource("23_htxhm")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1306100643]
+
+[node name="SceneUI" type="Control" parent="CanvasLayer" unique_id=917637266]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("5_4c57u")
 
-[node name="Panel" type="Panel" parent="SceneUI" unique_id=854968769]
+[node name="Panel" type="Panel" parent="CanvasLayer/SceneUI" unique_id=854968769]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SceneUI/Panel" unique_id=2038241936]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SceneUI/Panel" unique_id=2038241936]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 alignment = 1
 
-[node name="Button1" type="Button" parent="SceneUI/Panel/VBoxContainer" unique_id=1677696794]
+[node name="Button1" type="Button" parent="CanvasLayer/SceneUI/Panel/VBoxContainer" unique_id=1677696794]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="SceneUI/Panel/VBoxContainer" unique_id=1481999830]
+[node name="Button2" type="Button" parent="CanvasLayer/SceneUI/Panel/VBoxContainer" unique_id=1481999830]
 layout_mode = 2
 
-[node name="Button3" type="Button" parent="SceneUI/Panel/VBoxContainer" unique_id=45612735]
+[node name="Button3" type="Button" parent="CanvasLayer/SceneUI/Panel/VBoxContainer" unique_id=45612735]
 layout_mode = 2
 
-[node name="Trigger" type="Area2D" parent="." unique_id=1308805013 groups=["scene_triggers"]]
-script = ExtResource("6_efxa6")
+[node name="GroundContainer" type="Node2D" parent="." unique_id=644133189]
+position = Vector2(-58, 1080)
+script = ExtResource("14_1u8w0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trigger" unique_id=1424574367]
-position = Vector2(636.25, 62)
-scale = Vector2(100, 100)
-shape = SubResource("RectangleShape2D_dg77c")
+[node name="Ground1" type="StaticBody2D" parent="GroundContainer" unique_id=513911251]
 
-[node name="Ground" type="StaticBody2D" parent="." unique_id=1924778669]
-position = Vector2(-99, -22)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundContainer/Ground1" unique_id=1215260665]
+shape = SubResource("RectangleShape2D_0odxb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" unique_id=502645273]
-position = Vector2(22, 337.99997)
-scale = Vector2(100, 100)
-shape = SubResource("RectangleShape2D_272bh")
+[node name="ColorRect" type="ColorRect" parent="GroundContainer/Ground1" unique_id=564029054]
+offset_left = -960.0
+offset_top = -10.0
+offset_right = 960.0
+offset_bottom = 10.0
 
-[node name="ColorRect" type="ColorRect" parent="Ground" unique_id=652036048]
-offset_left = -974.0
-offset_top = 147.0
-offset_right = 1030.0
-offset_bottom = 527.0
-color = Color(0.26838076, 0.07696388, 2.4065375e-08, 1)
+[node name="Ground2" type="StaticBody2D" parent="GroundContainer" unique_id=929965393]
+position = Vector2(1920, 0)
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1780443708]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundContainer/Ground2" unique_id=1692068854]
+shape = SubResource("RectangleShape2D_0odxb")
+
+[node name="ColorRect" type="ColorRect" parent="GroundContainer/Ground2" unique_id=354947154]
+offset_left = -960.0
+offset_top = -10.0
+offset_right = 960.0
+offset_bottom = 10.0

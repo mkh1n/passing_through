@@ -5,6 +5,22 @@ extends Control
 @onready var btn3 = $Panel/VBoxContainer/Button3
 signal choice_selected(choice_id)
 
+func _ready():
+	visible = false
+	
+	# Настройка размеров панели и кнопок
+	$Panel.size = Vector2(200, 160)
+	
+	btn1.custom_minimum_size = Vector2(200, 50)
+	btn2.custom_minimum_size = Vector2(200, 50)
+	btn3.custom_minimum_size = Vector2(200, 50)
+	
+	# Настройка отступов в контейнере
+	$Panel/VBoxContainer.add_theme_constant_override("separation", 5)
+	
+	btn1.pressed.connect(_on_button1_pressed)
+	btn2.pressed.connect(_on_button2_pressed)
+	btn3.pressed.connect(_on_button3_pressed)
 func show_scene(_scene_id):
 	visible = true
 	

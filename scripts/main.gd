@@ -4,7 +4,7 @@ extends Node2D
 @onready var player = $Player
 @onready var scene_manager = $SceneManager
 @onready var photo_system = $PhotoSystem
-@onready var ui = $SceneUI
+@onready var ui = $CanvasLayer/SceneUI
 
 func _ready():
 	# подключаем триггер

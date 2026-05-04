@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmgjon0anbrk2"
-path="res://.godot/imported/busstop.png-2bc310476f4807aa6263b2a8c0029c38.ctex"
+uid="uid://bjo6n6i1ojhyv"
+path="res://.godot/imported/05_Particles.png-f55b6acf602689adbd2623ac18183676.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/busstop.png"
-dest_files=["res://.godot/imported/busstop.png-2bc310476f4807aa6263b2a8c0029c38.ctex"]
+source_file="res://assets/bg/05_Particles.png"
+dest_files=["res://.godot/imported/05_Particles.png-f55b6acf602689adbd2623ac18183676.ctex"]
 
 [params]
 
