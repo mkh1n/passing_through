@@ -3,12 +3,27 @@
 [ext_resource type="Script" uid="uid://cywk3nhnn4ps0" path="res://scripts/main.gd" id="1_7mycd"]
 [ext_resource type="Script" uid="uid://c5qfp2wwbjveh" path="res://scripts/player.gd" id="2_272bh"]
 [ext_resource type="Script" uid="uid://c4e1j2dyy5jso" path="res://scripts/scene_manager.gd" id="3_5vw27"]
-[ext_resource type="Texture2D" uid="uid://d21q63gqmk5fd" path="res://assets/player_placeholder.png" id="3_272bh"]
+[ext_resource type="Texture2D" uid="uid://ygaungxjlkjt" path="res://assets/player/head.png" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://bfoybx6djy3vp" path="res://scripts/photo_system.gd" id="4_kek77"]
 [ext_resource type="Script" uid="uid://dkwgilcwtxtjw" path="res://scripts/scene_ui.gd" id="5_4c57u"]
+[ext_resource type="Texture2D" uid="uid://rymfe84selkj" path="res://assets/player/lowerArm.png" id="5_w48qg"]
 [ext_resource type="Script" uid="uid://d0uxxmody4685" path="res://scripts/scene_trigger.gd" id="6_efxa6"]
+[ext_resource type="Texture2D" uid="uid://cqooylet6uq01" path="res://assets/player/upperArm.png" id="6_vivmo"]
+[ext_resource type="Texture2D" uid="uid://cxoa5174hai5y" path="res://assets/player/foot.png" id="7_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://8kcdb3apdcp" path="res://assets/player/lowerLeg.png" id="8_yaehf"]
+[ext_resource type="Texture2D" uid="uid://dxc7grbp37jij" path="res://assets/player/upperLeg.png" id="9_074og"]
+[ext_resource type="Texture2D" uid="uid://c7nrmukegexvo" path="res://assets/player/body.png" id="10_cegan"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+
+[sub_resource type="Animation" id="Animation_ycdy4"]
+resource_name = "walk"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w48qg"]
+_data = {
+&"walk": SubResource("Animation_ycdy4")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dg77c"]
 size = Vector2(5.1449995, 8.84)
@@ -26,11 +41,156 @@ script = ExtResource("2_272bh")
 scale = Vector2(12, 12)
 shape = SubResource("RectangleShape2D_5vw27")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=476462037]
-scale = Vector2(0.11, 0.1)
-texture = ExtResource("3_272bh")
-
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=85335819]
+
+[node name="Skeleton" type="Skeleton2D" parent="Player" unique_id=155240070]
+
+[node name="Body" type="Bone2D" parent="Player/Skeleton" unique_id=1919251972]
+position = Vector2(1, 1)
+rotation = -0.045378562
+rest = Transform2D(0.99897057, -0.04536299, 0.04536299, 0.99897057, 1, 1)
+auto_calculate_length_and_angle = false
+length = 392.2
+bone_angle = 0.0
+
+[node name="Head" type="Bone2D" parent="Player/Skeleton/Body" unique_id=129594644]
+position = Vector2(0.5867648, -79.05477)
+rotation = -1.4817846
+rest = Transform2D(0.08889425, -0.99604106, 0.99604106, 0.08889425, 0.5867648, -79.05477)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/Head" unique_id=797709806]
+position = Vector2(15.984764, -0.6979091)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("4_5vw27")
+
+[node name="LeftUpperArm" type="Bone2D" parent="Player/Skeleton/Body" unique_id=1539645545]
+position = Vector2(16.979546, -65.296974)
+rest = Transform2D(1, 0, 0, 1, 16.979546, -65.296974)
+
+[node name="LeftLowerArm" type="Bone2D" parent="Player/Skeleton/Body/LeftUpperArm" unique_id=1805643235]
+position = Vector2(-4.3568153, 51.855743)
+rotation = 1.3020157
+rest = Transform2D(0.26555607, 0.9640954, -0.9640954, 0.26555607, -4.3568153, 51.855743)
+auto_calculate_length_and_angle = false
+length = 36.877
+bone_angle = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/LeftUpperArm/LeftLowerArm" unique_id=2036521764]
+position = Vector2(-21.56529, -8.058446)
+rotation = -1.2566371
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("5_w48qg")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/LeftUpperArm" unique_id=1811943917]
+position = Vector2(4.5895376, 75.28567)
+rotation = -0.40317106
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("6_vivmo")
+
+[node name="RightUpperLeg" type="Bone2D" parent="Player/Skeleton/Body" unique_id=1788006345]
+position = Vector2(8.674179, 29.423779)
+rotation = 0.40317106
+rest = Transform2D(0.9198215, 0.3923371, -0.3923371, 0.9198215, 8.674179, 29.423779)
+
+[node name="RightLowerLeg" type="Bone2D" parent="Player/Skeleton/Body/RightUpperLeg" unique_id=186237902]
+position = Vector2(10.39063, 30.984673)
+rotation = 1.1554079
+rest = Transform2D(0.40354535, 0.91495967, -0.91495967, 0.40354535, 10.39063, 30.984673)
+auto_calculate_length_and_angle = false
+length = 47.905
+bone_angle = 0.0
+
+[node name="FeetR" type="Bone2D" parent="Player/Skeleton/Body/RightUpperLeg/RightLowerLeg" unique_id=237822825]
+position = Vector2(55.914345, 4.311082)
+rotation = -0.9424778
+rest = Transform2D(0.58778524, -0.809017, 0.809017, 0.58778524, 55.914345, 4.311082)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/RightUpperLeg/RightLowerLeg/FeetR" unique_id=1202237716]
+position = Vector2(9.510993, -2.221453)
+rotation = -0.58294
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("7_2cqfq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/RightUpperLeg/RightLowerLeg" unique_id=1964671012]
+position = Vector2(29.296806, 1.5706017)
+rotation = -1.4817846
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("8_yaehf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/RightUpperLeg" unique_id=618923637]
+position = Vector2(2.565401, 9.7169285)
+rotation = -0.31415927
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("9_074og")
+
+[node name="RightUpperArm" type="Bone2D" parent="Player/Skeleton/Body" unique_id=532305833]
+position = Vector2(-18.93803, -67.929016)
+rotation = -0.53930676
+rest = Transform2D(0.8580649, -0.5135413, 0.5135413, 0.8580649, -18.93803, -67.929016)
+
+[node name="RightLowerArm" type="Bone2D" parent="Player/Skeleton/Body/RightUpperArm" unique_id=369162334]
+position = Vector2(-37.527443, 27.653044)
+rotation = 1.5707964
+rest = Transform2D(-4.371139e-08, 1, -1, -4.371139e-08, -37.527443, 27.653044)
+auto_calculate_length_and_angle = false
+length = 40.357
+bone_angle = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/RightUpperArm/RightLowerArm" unique_id=842397166]
+position = Vector2(24.341785, 1.6840067)
+rotation = -1.3910275
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("5_w48qg")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/RightUpperArm" unique_id=505176328]
+position = Vector2(-19.917576, 15.597763)
+rotation = -2.1101031
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("6_vivmo")
+
+[node name="UpperLegL" type="Bone2D" parent="Player/Skeleton/Body" unique_id=1306414739]
+position = Vector2(-12.394931, 30.469097)
+rotation = -0.39269912
+rest = Transform2D(0.9238795, -0.38268346, 0.38268346, 0.9238795, -12.394931, 30.469097)
+
+[node name="LowerLegL" type="Bone2D" parent="Player/Skeleton/Body/UpperLegL" unique_id=983347181]
+position = Vector2(-21.080631, 34.75154)
+rotation = 1.1554079
+rest = Transform2D(0.40354535, 0.91495967, -0.91495967, 0.40354535, -21.080631, 34.75154)
+auto_calculate_length_and_angle = false
+length = 47.905
+bone_angle = 0.0
+
+[node name="FeetL" type="Bone2D" parent="Player/Skeleton/Body/UpperLegL/LowerLegL" unique_id=995105872]
+position = Vector2(31.407873, 35.686752)
+rotation = 0.44854957
+rest = Transform2D(0.90107703, 0.43365905, -0.43365905, 0.90107703, 31.407873, 35.686752)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/UpperLegL/LowerLegL/FeetL" unique_id=545354900]
+position = Vector2(3.3827624, -5.2304926)
+rotation = -1.0768682
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("7_2cqfq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/UpperLegL/LowerLegL" unique_id=331105165]
+position = Vector2(13.796365, 15.285116)
+rotation = -0.58294
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("8_yaehf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body/UpperLegL" unique_id=950570698]
+position = Vector2(-5.0903926, 10.866826)
+rotation = -2.4678955
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("9_074og")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Skeleton/Body" unique_id=393039206]
+position = Vector2(-1.9081998, -24.111382)
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("10_cegan")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=1500247926]
+libraries/ = SubResource("AnimationLibrary_w48qg")
 
 [node name="SceneManager" type="Node" parent="." unique_id=1627266754]
 script = ExtResource("3_5vw27")
@@ -39,7 +199,6 @@ script = ExtResource("3_5vw27")
 script = ExtResource("4_kek77")
 
 [node name="SceneUI" type="Control" parent="." unique_id=917637266]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -88,3 +247,5 @@ offset_top = 151.0
 offset_right = 1032.0
 offset_bottom = 531.0
 color = Color(0.26838076, 0.07696388, 2.4065375e-08, 1)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1780443708]
