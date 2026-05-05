@@ -1,8 +1,1 @@
 res://main.tscn
-res://ground_script.gd
-res://scripts/main.gd
-res://scripts/ground_script.gd
-res://scripts/player.gd
-res://scripts/scene_trigger.gd
-res://scripts/scene_ui.gd
-res://scripts/scene_manager.gd
